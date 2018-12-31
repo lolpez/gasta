@@ -1,32 +1,3 @@
-/*var cacheName = 'gasta-sw-V4';
-
-self.addEventListener('install', event => {
-	event.waitUntil(
-		caches.open(cacheName)
-			.then(cache => cache.addAll([
-				'/'
-			]))
-	);
-});
-
-self.addEventListener('message', function (event) {
-	if (event.data.action === 'skipWaiting') {
-		self.skipWaiting();
-	}
-});
-
-self.addEventListener('fetch', function (event) {
-	event.respondWith(
-		caches.match(event.request)
-			.then(function (response) {
-				if (response) {
-					return response;
-				}
-				return fetch(event.request);
-			})
-	);
-});*/
-
 /*
  Copyright 2016 Google Inc. All Rights Reserved.
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +14,7 @@ self.addEventListener('fetch', function (event) {
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const PRECACHE = 'gasta-sw-V8';
+const PRECACHE = 'gasta-sw-V9';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
