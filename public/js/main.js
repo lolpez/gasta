@@ -24,8 +24,7 @@ if ('serviceWorker' in navigator) {
 
                         // There is a new service worker available, show the notification
                         if (navigator.serviceWorker.controller) {
-                            let notification = document.getElementById('notification ');
-                            notification.className = 'show';
+                            M.toast({ html: 'A new update is available!' })
                         }
 
                         break;
