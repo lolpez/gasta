@@ -1,9 +1,11 @@
 let deferredInstaller;
-const updateBtn = document.getElementById('update-button');
+let updateButtons = document.getElementsByClassName("update-button");
 
-updateBtn.addEventListener('click', () => {
-    deferredInstaller.postMessage({ action: 'skipWaiting' });
-});
+for (var i = 0; i < updateButtons.length; i++) {
+    updateButtons[i].addEventListener('click', function () {
+        deferredInstaller.postMessage({ action: 'skipWaiting' });
+    }, false);
+}
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').then(reg => {
@@ -14,7 +16,9 @@ if ('serviceWorker' in navigator) {
                     case 'installed':
                         if (navigator.serviceWorker.controller) {
                             M.toast({ html: 'A new version is available!' });
-                            updateBtn.style.display = 'block';
+                            for (var i = 0; i < updateButtons.length; i++) {
+                                updateButtons[i].style.display = 'block';
+                            }
                         }
                         // No update available
                         break;

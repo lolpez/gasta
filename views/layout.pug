@@ -1,10 +1,11 @@
 html
 	head
-		meta(charset='utf-8')
 		title= title
-		link(rel='manifest', href='/manifest.webmanifest')
-		link(rel="shortcut icon", type="image/x-icon", href="/img/gasta-favicon.ico")
+		meta(charset='utf-8')
 		meta(name="theme-color", content="#880e4f")
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='manifest', href='/manifest.webmanifest')
+		link(rel="shortcut icon", type="image/x-icon", href="/img/gasta-favicon.ico")		
 		link(type="text/css", rel="stylesheet", href="/css/materialize.min.css", media="screen,projection")
 		link(type="text/css", rel="stylesheet", href="/css/style.css", media="screen,projection")
 	body.primary-theme
@@ -17,10 +18,10 @@ html
 							i.material-icons menu
 						ul#nav-mobile.right.hide-on-med-and-down
 							li
-								a#install-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='Install app')
+								a.install-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='Install app')
 									i.material-icons get_app
 							li
-								a#update-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='A new version is available! Click here to update')
+								a.update-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='Update app')
 									i.material-icons cached
 							li
 								a(href='/')
@@ -56,7 +57,13 @@ html
 			li
 				.divider
 			li
-				a.subheader
+				a.install-button.tooltipped(href='javascript:void(0);')
+					i.material-icons get_app
+					| Install app
+			li
+				a.update-button.subheader(href='javascript:void(0);')
+					i.material-icons cached
+					| Update app
 		.container.content
 			.row
 				.s12
