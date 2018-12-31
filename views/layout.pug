@@ -18,10 +18,10 @@ html
 							i.material-icons menu
 						ul#nav-mobile.right.hide-on-med-and-down
 							li
-								a.install-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='Install app')
+								a.install-button.tooltipped.disabled(href='javascript:void(0);', data-position='down', data-tooltip='Install app')
 									i.material-icons get_app
 							li
-								a.update-button.tooltipped(href='javascript:void(0);', data-position='down', data-tooltip='Update app')
+								a.update-button.tooltipped.disabled(href='javascript:void(0);', data-position='down', data-tooltip='Update app')
 									i.material-icons cached
 							li
 								a(href='/')
@@ -57,11 +57,11 @@ html
 			li
 				.divider
 			li
-				a.install-button.tooltipped(href='javascript:void(0);')
+				a.install-button.disabled(href='javascript:void(0);')
 					i.material-icons get_app
 					| Install app
 			li
-				a.update-button.subheader(href='javascript:void(0);')
+				a.update-button.disabled(href='javascript:void(0);')
 					i.material-icons cached
 					| Update app
 		.container.content
