@@ -29,7 +29,7 @@ self.addEventListener('fetch', function (event) {
 
 
 
-var CACHE = 'gasta-sw-V5';
+var CACHE = 'gasta-sw-V6';
 
 self.addEventListener('install', function (evt) {
 	evt.waitUntil(precache());
