@@ -23,3 +23,34 @@
 .waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
     color: white
 }
+
+.content{
+    margin-top: 3%;
+}
+
+#install-button{
+    display: none;
+}
+
+.primary-theme{
+    background-color: #0f1325 !important;
+    color: white;
+}
+
+.secundary-theme{
+    background-color: #4300a0 !important;
+    color: white;
+}
+
+/* input[type="file"], input[type="submit"] {
+    background-color: #4300a0 !important;
+    color: white;
+} */
+
+.btn, .btn-large, .btn-small {
+    background-color: #4300a0;
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #6724a4;
+}
