@@ -5,19 +5,76 @@ html
 		link(rel='manifest', href='/manifest.webmanifest')
 		link(rel="shortcut icon", type="image/x-icon", href="/img/gasta-favicon.ico")
 		meta(name="theme-color", content="#880e4f")
+		link(type="text/css", rel="stylesheet", href="/css/materialize.min.css", media="screen,projection")
+		link(type="text/css", rel="stylesheet", href="/css/style.css", media="screen,projection")
 	body
-		block content
-		a(href="/") Home
-		br
-		a(href="/page/1") Page 1
-		br
-		a(href="/page/2") Page 2
-		br
-		a(href="/page/3") Page 3
-		br
-		a(href="/page/4") Page 4
-		br
-		a(href="/page/5") Page 5
-		br
+		.navbar-fixed
+			nav.pink.darken-4
+				.container
+					.nav-wrapper
+						a.brand-logo(href='/')
+							i.material-icons home
+							| Gasta
+						a.sidenav-trigger(href='#', data-target='mobile-nav')
+							i.material-icons menu
+		ul#mobile-nav.sidenav
+			li
+				.user-view
+					.background.pink.darken-4
+					a(href='#user')
+						img.circle(src='/img/gasta-logo.png')
+					a(href='/')
+						span.white-text.name Gasta
+					a(href='https://github.com/lolpez/gasta', target='_blank')
+						span.white-text.email Github project
+			li
+				a(href='/')
+					i.material-icons.left book
+					| Monthly report
+			li
+				a(href='/')
+					i.material-icons.left book
+					| Yearly report
+			li
+				a(href='/')
+					i.material-icons.left book
+					| All time report
+			li
+				.divider
+			li
+				a.subheader
+		.container
+			.card.pink.darken-4
+				.card-content.white-text
+					.row
+						.s12
+							ul#tabs.tabs.tabs-transparent
+								li.tab.col.s6
+									a.active(href='#users') Today
+								li.tab.col.s6
+									a(href='#documents') Documents
+							#users.col.s12
+								.row
+									| First tab
+									block content
+										a(href="/") Home
+										br
+										a(href="/page/1") Page 1
+										br
+										a(href="/page/2") Page 2
+										br
+										a(href="/page/3") Page 3
+										br
+										a(href="/page/4") Page 4
+										br
+										a(href="/page/5") Page 5
+										br
+							#documents.col.s12
+								.row Second tab
+		.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
+			a#floating-button.btn-floating.btn-large.teal.darken-4(href='/')
+				i.large.material-icons send
 		button#install-button(style="display: none") Add to home screen
-		script(src="/js/main.js")
+		script(src="/js/materialize.min.js")
+		script(src="/js/ui.js")
+		//- script(src="/js/main.js")
