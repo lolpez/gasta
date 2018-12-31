@@ -4,7 +4,6 @@ html
 		title= title
 		link(rel='manifest', href='/manifest.webmanifest')
 		link(rel="shortcut icon", type="image/x-icon", href="/img/gasta-favicon.ico")
-		script(src="/js/main.js", defer)
 	body
 		block content
 		a(href="/") Home
@@ -19,4 +18,5 @@ html
 		br
 		a(href="/page/5") Page 5
 		br
-		button.add-button Add to home screen
+		button#install-button(style="display: none") Add to home screen
+		script(src="/js/main.js")
