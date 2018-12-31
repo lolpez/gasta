@@ -1,5 +1,5 @@
 {
-    "background_color": "purple",
+    "background_color": "#880e4f",
     "description": "Progressive web app for expenses control.",
     "display": "fullscreen",
     "icons": [
