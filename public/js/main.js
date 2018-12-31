@@ -7,6 +7,15 @@
 
 */
 
+
+let newWorker;
+// The click event on the notification
+document.getElementById('update-button').addEventListener('click', function () {
+    console.log("EEEEEEE")
+    newWorker.postMessage({ action: 'skipWaiting' });
+});
+
+
 if ('serviceWorker' in navigator) {
     // Register the service worker
     navigator.serviceWorker.register('sw.js').then(reg => {
@@ -45,17 +54,6 @@ if ('serviceWorker' in navigator) {
     });;
 
 }
-
-
-
-let newWorker;
-// The click event on the notification
-document.getElementById('update-button').addEventListener('click', function () {
-    newWorker.postMessage({ action: 'skipWaiting' });
-});
-
-
-
 
 
 // Code to handle install prompt on desktop
