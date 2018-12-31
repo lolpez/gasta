@@ -1,4 +1,4 @@
-const cacheName = "gasta2";
+var cacheName = 'gastagg1';
 
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -7,6 +7,12 @@ self.addEventListener('install', event => {
 				'/'
 			]))
 	);
+});
+
+self.addEventListener('message', function (event) {
+	if (event.data.action === 'skipWaiting') {
+		self.skipWaiting();
+	}
 });
 
 self.addEventListener('fetch', function (event) {
@@ -19,10 +25,4 @@ self.addEventListener('fetch', function (event) {
 				return fetch(event.request);
 			})
 	);
-});
-
-self.addEventListener('message', function (event) {
-	if (event.data.action === 'skipWaiting') {
-		self.skipWaiting();
-	}
 });

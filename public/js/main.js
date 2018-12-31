@@ -1,59 +1,39 @@
-// Register service worker
-/*if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').then(function () {
-        console.log('Service Worker Registered');
-    });
-}
-
-*/
-
-
 let newWorker;
-// The click event on the notification
+function showUpdateBar() {
+    M.toast({ html: 'A new version is available!' })
+}
+// The click event on the pop up notification
 document.getElementById('update-button').addEventListener('click', function () {
-    console.log("EEEEEEE")
+    console.log("EEEE");
     newWorker.postMessage({ action: 'skipWaiting' });
 });
-
-
 if ('serviceWorker' in navigator) {
-    // Register the service worker
     navigator.serviceWorker.register('sw.js').then(reg => {
-        console.log('ServiceWorker registration successful with scope: ', reg.scope);
         reg.addEventListener('updatefound', () => {
-
-            // An updated service worker has appeared in reg.installing!
+            // A wild service worker has appeared in reg.installing!
             newWorker = reg.installing;
-
             newWorker.addEventListener('statechange', () => {
-
-                // Has service worker state changed?
+                // Has network.state changed?
                 switch (newWorker.state) {
                     case 'installed':
-
-                        // There is a new service worker available, show the notification
                         if (navigator.serviceWorker.controller) {
-                            M.toast({ html: 'A new update is available!' })
+                            // new update available
+                            showUpdateBar();
                         }
-
+                        // No update available
                         break;
                 }
             });
         });
-        let refreshing;
-        // The event listener that is fired when the service worker updates
-        // Here we reload the page
-        navigator.serviceWorker.addEventListener('controllerchange', function () {
-            if (refreshing) return;
-            window.location.reload();
-            refreshing = true;
-        });
-    }).catch(function (err) {
-        // registration failed :(
-        console.log('ServiceWorker registration failed: ', err);
-    });;
-
+    });
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (refreshing) return;
+        window.location.reload();
+        refreshing = true;
+    });
 }
+
 
 
 // Code to handle install prompt on desktop
