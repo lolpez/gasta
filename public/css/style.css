@@ -25,7 +25,7 @@
 }
 
 .content{
-    margin-top: 3%;
+    margin-top: 10vh;
 }
 
 /* .install-button, .update-button{
@@ -33,7 +33,7 @@
 } */
 
 .disabled{
-    color: rgba(0,0,0,0.54);
+    color: rgba(0,0,0,0.54) !important;
 }
 
 .primary-theme{
