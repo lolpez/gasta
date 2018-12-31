@@ -28,7 +28,7 @@
     margin-top: 3%;
 }
 
-#install-button{
+#install-button, #update-button{
     display: none;
 }
 
@@ -41,11 +41,6 @@
     background-color: #4300a0 !important;
     color: white;
 }
-
-/* input[type="file"], input[type="submit"] {
-    background-color: #4300a0 !important;
-    color: white;
-} */
 
 .btn, .btn-large, .btn-small {
     background-color: #4300a0;

@@ -1,4 +1,4 @@
-var cacheName = 'gasta-sw-V2';
+var cacheName = 'gasta-sw-V3';
 
 self.addEventListener('install', event => {
 	event.waitUntil(
