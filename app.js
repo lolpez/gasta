@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/page', pageRouter);
 
+// use HTTPS
+app.use(function (req, res, next) {
+	if (!req.secure) {
+		return res.redirect(`https://${req.get('Host')}${req.url}`);
+	}
+	next();
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));

@@ -7,6 +7,7 @@ body {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
+    font-display: auto;
     src: local('Material Icons'), local('MaterialIcons-Regular'), url(../fonts/material-icons.woff2) format('woff2');
 }
 
@@ -21,6 +22,7 @@ body {
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
+    font-feature-settings: 'liga';
     -moz-font-feature-settings: 'liga';
     -moz-osx-font-smoothing: grayscale;
 }

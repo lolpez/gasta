@@ -1,9 +1,17 @@
 let deferredPrompt;
 let installButtons = document.getElementsByClassName("install-button");
+let installEventButtons = false;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
+    if (!installEventButtons) {
+        addInstallEventToButtons();
+        installEventButtons = true;
+    }
+});
+
+function addInstallEventToButtons() {
     for (var i = 0; i < installButtons.length; i++) {
         installButtons[i].classList.remove("disabled");
         installButtons[i].dataset.tooltip = 'Install app';
@@ -19,4 +27,4 @@ window.addEventListener('beforeinstallprompt', (e) => {
             })
         });
     }
-});
+}
