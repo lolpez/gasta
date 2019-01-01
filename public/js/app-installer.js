@@ -10,7 +10,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    M.toast({ html: 'App installed on your device!' });
+                    M.toast({ html: 'Installing app!' });
                 } else {
                     M.toast({ html: 'You can install the app later by clicking the download button.' });
                 }

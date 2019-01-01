@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator) {
                         if (navigator.serviceWorker.controller) {
                             for (var i = 0; i < updateButtons.length; i++) {
                                 updateButtons[i].classList.remove("disabled");
-                                updateButtons[i].addEventListener('click', updateApp(), false);
+                                updateButtons[i].addEventListener('click', updateApp, false);
                             }
                             M.toast({
                                 html: `A new version is available! <a href='javascript:void(0);' onclick='updateApp()' class='btn-flat toast-action'>Click here to update</a>`,
