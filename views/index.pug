@@ -8,39 +8,26 @@ block today
 				.input-field.col.s12
 					input#money-to-spend.validate.white-text(name='name', type='text', required='')
 					label.white-text(for='money-to-spend') How much did you spend?
+				.input-field.col.s12
+					textarea#spend-description.materialize-textarea.white-text(data-length='120')
+					label.white-text(for='spend-description') Description (optional)
 				.file-field.input-field.col.s12
 					.btn
-						label.white-text(for='optional-picture') Picture (optional)
+						label.white-text(for='optional-picture', style='font-size: 14px') Picture
 						input#optional-picture(type='file', name='file', accept='image/*;capture=camera')
 					.file-path-wrapper
-						input.file-path.validate.white-text(type='text')
-				.input-field.col.s12
-					textarea#description.materialize-textarea.white-text(data-length='120')
-					label.white-text(for='description') Description (optional)
+						label.white-text(for='#optional-picture-path') Optional
+						input#optional-picture-path.file-path.validate.white-text(type='text')
 				.input-field.col.s12
 					button.waves-effect.waves-light.btn.tooltipped(type='submit', data-position='top', data-tooltip='Save') Submit
 		.col.s12.m9
-			h5.col.s12 Today's expenses
-			.col.s12
+			.row
+				h5.col.s12 Today's expenses
 block history
 	.row
-		form.col.s12.m3(action='/', method='POST')
+		.col.s12.m3
 			.row
 				h5.col.s12 Forgot an expense?
-				.input-field.col.s12
-					input#name.validate.white-text(name='name', type='text', required='')
-					label.white-text(for='name') How much did you spend?
-				.file-field.input-field.col.s12
-					.btn
-						span Picture (optional)
-						input#file(type='file', name='file', accept='image/*;capture=camera')
-					.file-path-wrapper
-						input.file-path.validate.white-text(type='text')
-				.input-field.col.s12
-					textarea#description.materialize-textarea.white-text(data-length='120')
-					label.white-text(for='description') Description (optional)
-				.input-field.col.s12
-					button.waves-effect.waves-light.btn.tooltipped(type='submit', data-position='top', data-tooltip='Save') Submit
 		.col.s12.m9
-			h5.col.s12 All time history
-			.col.s12
+			.row
+				h5.col.s12 All time history
