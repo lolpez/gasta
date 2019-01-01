@@ -14,9 +14,13 @@ if ('serviceWorker' in navigator) {
                     case 'installed':
                         if (navigator.serviceWorker.controller) {
                             for (var i = 0; i < updateButtons.length; i++) {
-                                updateButtons[i].addEventListener('click', updateApp(), false).classList.remove("disabled");
+                                updateButtons[i].classList.remove("disabled");
+                                updateButtons[i].addEventListener('click', updateApp(), false);
                             }
-                            M.toast({ html: `A new version is available! <a href='javascript:void(0);' onclick='updateApp()' class='btn-flat toast-action'>Click here to update</a>`, displayLength: 10000 });
+                            M.toast({
+                                html: `A new version is available! <a href='javascript:void(0);' onclick='updateApp()' class='btn-flat toast-action'>Click here to update</a>`,
+                                displayLength: 10000
+                            });
                         }
                         // No update available
                         break;

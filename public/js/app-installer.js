@@ -6,7 +6,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
     for (var i = 0; i < installButtons.length; i++) {
         installButtons[i].addEventListener('click', (e) => {
-            installButtons[i].style.display = 'none';
+            installButtons[i].classList.remove("disabled");
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
@@ -15,7 +15,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
                     M.toast({ html: 'You can install the app later by clicking the download button.' });
                 }
                 deferredPrompt = null;
-            }).classList.remove("disabled");
+            })
         });
     }
 });
