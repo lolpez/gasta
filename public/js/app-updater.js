@@ -1,6 +1,10 @@
 let deferredInstaller;
 let updateButtons = document.getElementsByClassName("update-button");
 
+function updateApp() {
+    deferredInstaller.postMessage({ action: 'skipWaiting' });
+}
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').then(reg => {
         reg.addEventListener('updatefound', () => {
@@ -10,11 +14,9 @@ if ('serviceWorker' in navigator) {
                     case 'installed':
                         if (navigator.serviceWorker.controller) {
                             for (var i = 0; i < updateButtons.length; i++) {
-                                updateButtons[i].addEventListener('click', function () {
-                                    deferredInstaller.postMessage({ action: 'skipWaiting' });
-                                }, false).classList.remove("disabled");
+                                updateButtons[i].addEventListener('click', updateApp(), false).classList.remove("disabled");
                             }
-                            M.toast({ html: 'A new version is available!' });
+                            M.toast({ html: `A new version is available! <a href='javascript:void(0);' onclick='updateApp()' class='btn-flat toast-action'>Click here to update</a>`, displayLength: 10000 });
                         }
                         // No update available
                         break;
