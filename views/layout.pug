@@ -11,7 +11,17 @@ html(lang="en-US")
 		link(type="text/css", rel="stylesheet", href="/css/materialize.min.css", media="screen,projection")
 		link(type="text/css", rel="stylesheet", href="/css/style.css", media="screen,projection")
 	body.primary-theme
-		.navbar-fixed
+		#loader
+			.preloader-wrapper.big.active
+				.spinner-layer.spinner-secundary-theme
+					.circle-clipper.left
+						.circle
+					.gap-patch
+						.circle
+					.circle-clipper.right
+						.circle
+			| Loading
+		#navbar.navbar-fixed
 			nav.nav-extended.secundary-theme
 				.container
 					.nav-wrapper
@@ -25,9 +35,6 @@ html(lang="en-US")
 							li
 								a.update-button.tooltipped.disabled(href='javascript:void(0);', data-position='down', data-tooltip='No updates available')
 									i.material-icons cached
-							li
-								a(href='/')
-									i.material-icons home
 				.nav-content
 					ul#tabs.tabs.tabs-transparent.row
 						li.tab.col.s6
@@ -65,17 +72,17 @@ html(lang="en-US")
 					| Update app
 			li.version
 				a.update-button.disabled(href='javascript:void(0);')
-					| Version v#{version}
-		.container.content
+					| Version #{version}
+		#content.container
 			.row
 				.s12
 					#today-tab.col.s12
 						block today
 					#history-tab.col.s12
 						block history
-		.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
-			a#floating-button.btn-floating.btn-large.secundary-theme(href='/')
-				i.large.material-icons send
+			.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
+				a#floating-button.btn-floating.btn-large.secundary-theme(href='/')
+					i.large.material-icons send
 		script(src="/js/materialize.min.js")
 		script(src="/js/app-ui.js")
 		script(src="/js/app-installer.js")

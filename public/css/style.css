@@ -31,7 +31,8 @@ body {
     color: white
 }
 
-.content{
+#content{
+    display: none;
     margin-top: 10vh;
 }
 
@@ -62,4 +63,24 @@ body {
     bottom: 9vh;
     position: fixed;
     width: 100%;
+}
+
+#loader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	-webkit-font-smoothing: antialiased;
+	background-blend-mode: multiply;
+	background-size: cover;
+    background-position: center;
+}
+
+#navbar{
+    display: contents;
+}
+
+.spinner-secundary-theme{
+    border-color: #4300a0;
 }
