@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var pageRouter = require('./routes/page');
 
 var app = express();
+var io = app.io = require('socket.io')();
+var ioIndex = io.of("/index");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', indexRouter(ioIndex));
 app.use('/page', pageRouter);
 
 // use HTTPS

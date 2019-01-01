@@ -15,4 +15,14 @@ window.onload = function () {
     loader.style.display = 'none';
     navbar.style.display = 'block';
     content.style.display = 'block';
+    var socket = io("/index");
+
+    socket.emit('hi', {
+        name: "Luis",
+        message: "Hello"
+    });
+
+    socket.on('inserted', (object) => {
+        console.log("Message from server: " + object.messagefromserver);
+    });
 }
