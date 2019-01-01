@@ -18,11 +18,15 @@ window.onload = function () {
     var socket = io("/index");
 
     socket.emit('hi', {
-        name: "Luis",
-        message: "Hello"
+        date: new Date(),
+        cuantity: 10,
+        user: "Luis"
     });
 
     socket.on('inserted', (object) => {
-        console.log("Message from server: " + object.messagefromserver);
+        M.toast({
+            html: `Date: ${object.date}, Cuantity: ${object.cuantity}, User: ${object.user}`,
+            displayLength: 10000
+        });
     });
 }

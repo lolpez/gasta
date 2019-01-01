@@ -1,0 +1,16 @@
+{
+    "development": {
+        "port": 3000,
+        "mongoConfig": {
+            "url": "mongodb://gasta-db-user:luis666666@ds145694.mlab.com:45694/gasta-db",
+            "dbName": "gasta-db"
+        }
+    },
+    "production": {
+        "port": 3000,
+        "mongoConfig": {
+            "url": "mongodb://gasta-db-user:luis666666@ds145694.mlab.com:45694/gasta-db",
+            "dbName": "gasta-db"
+        }
+    }
+}

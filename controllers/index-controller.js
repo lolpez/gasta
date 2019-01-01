@@ -1,3 +1,4 @@
+var modelPerson = require('../models/person');
 /**
  * @constructor
  * @param {SocketIO} io - Socket IO room for index router.
@@ -34,8 +35,8 @@ var indexController = (io) => {
 		 */
         socket.on('hi', (data) => {
             console.log("client said: " + JSON.stringify(data));
-            io.emit('inserted', {
-                messagefromserver: "peace through power"
+            modelPerson.insert(data).then((expense) => {
+                io.emit('inserted', expense);
             });
         });
     });
