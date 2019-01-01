@@ -6,12 +6,12 @@ block today
 			.row
 				h5.col.s12 New expense
 				.input-field.col.s12
-					input#name.validate.white-text(name='name', type='text', required='')
-					label.white-text(for='name') How much did you spend?
+					input#money-to-spend.validate.white-text(name='name', type='text', required='')
+					label.white-text(for='money-to-spend') How much did you spend?
 				.file-field.input-field.col.s12
 					.btn
-						span Picture (optional)
-						input#file(type='file', name='file', accept='image/*;capture=camera')
+						label.white-text(for='optional-picture') Picture (optional)
+						input#optional-picture(type='file', name='file', accept='image/*;capture=camera')
 					.file-path-wrapper
 						input.file-path.validate.white-text(type='text')
 				.input-field.col.s12
