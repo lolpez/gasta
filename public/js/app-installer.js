@@ -6,6 +6,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
     for (var i = 0; i < installButtons.length; i++) {
         installButtons[i].classList.remove("disabled");
+        installButtons[i].dataset.tooltip = 'Install app';
         installButtons[i].addEventListener('click', (e) => {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
