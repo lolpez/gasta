@@ -9,6 +9,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
         installButtons[i].addEventListener('click', (e) => {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
+                console.log(choiceResult.outcome);
                 if (choiceResult.outcome === 'accepted') {
                     M.toast({ html: 'Installing app!' });
                 } else {
