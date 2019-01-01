@@ -36,12 +36,9 @@ html
 			li
 				.user-view
 					.background.secundary-theme
-					a(href='#user')
-						img.circle(src='/img/gasta-logo.png')
 					a(href='/')
-						span.white-text.name= title
-					a(href='https://github.com/lolpez/gasta', target='_blank')
-						span.white-text.email Github project
+						img.circle(src='/img/gasta-logo.png')
+					span.white-text.name= title
 			li
 				a(href='/')
 					i.material-icons.left book
@@ -64,6 +61,9 @@ html
 				a.update-button.tooltipped.disabled(href='javascript:void(0);', data-position='right', data-tooltip='No updates available')
 					i.material-icons cached
 					| Update app
+			li.version
+				a.update-button.disabled(href='javascript:void(0);')
+					| Version v#{version}
 		.container.content
 			.row
 				.s12

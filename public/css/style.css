@@ -54,3 +54,10 @@ body {
 .btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: #6724a4;
 }
+
+.version{
+    color: rgba(0,0,0,0.54) !important;
+    bottom: 9vh;
+    position: fixed;
+    width: 100%;
+}
