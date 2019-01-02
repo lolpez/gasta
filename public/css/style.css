@@ -94,3 +94,7 @@ ul.quick-access {
 ul.quick-access li {
     display:inline;
 }
+
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #4300a0 !important;
+}
