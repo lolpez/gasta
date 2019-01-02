@@ -110,7 +110,34 @@ var model = {
                 });
             });
         });
+    },
+    /**
+     * Gets the user´s today spent.
+     * @method remove
+     * @param {string} id - expense's ID document to remove.
+     * @returns {string}
+     * @memberof expenseModel
+     */
+    getTodaySpent: (id) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.aggregate([
+                    {
+                        $group: {
+                            _id: null,
+                            totalValue: { $sum: "$quantity" },
+                            count: { $sum: 1 }
+                        }
+                    }
+                ]).toArray((err, docs) => {
+                    assert.equal(err, null);
+                    resolve(docs);
+                });
+            });
+        });
     }
+
 }
 
 module.exports = model;

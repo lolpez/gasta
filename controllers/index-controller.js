@@ -1,4 +1,4 @@
-var modelPerson = require('../models/person');
+var modelExpense = require('../models/expense');
 /**
  * @constructor
  * @param {SocketIO} io - Socket IO room for index router.
@@ -10,6 +10,9 @@ var indexController = (io) => {
     var pages = {
         /* GET home page. */
         mainPage: (req, res, next) => {
+            modelExpense.getTodaySpent().then((expenses) => {
+                console.log(expenses)
+            });
             res.render("index", {
                 title: "Gasta",
                 version: "0.0.1"
@@ -34,10 +37,10 @@ var indexController = (io) => {
 		 * @memberof indexController
 		 */
         socket.on('new-expense', (data) => {
-            modelPerson.insert(data).then((expense) => {
+            modelExpense.insert(data).then((expense) => {
                 io.emit('expense-inserted', {
                     success: true,
-                    message: `Bs. ${expense.cuantity} spent in ${expense.category}`,
+                    message: `Bs. ${expense.quantity} spent in ${expense.category}`,
                     object: null
                 });
             });

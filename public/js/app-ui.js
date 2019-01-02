@@ -10,7 +10,7 @@ window.onload = function () {
     var tooltips = document.querySelectorAll('.tooltipped');
     var selects = document.querySelectorAll('select');
     var submitButton = document.getElementById('submit-button');
-    var cuantityInput = document.getElementById("money-to-spend");
+    var quantityInput = document.getElementById("money-to-spend");
     var categoryInput = document.getElementById("category-spent");
     var descriptionInput = document.getElementById("spend-description");
     var magicButtons = document.querySelectorAll('.magic-button');
@@ -26,7 +26,7 @@ window.onload = function () {
 
     submitButton.addEventListener('click', () => {
         newExpense(
-            cuantityInput.value,
+            quantityInput.value,
             categoryInput.value,
             descriptionInput.value
         );
@@ -34,7 +34,7 @@ window.onload = function () {
 
     socket.on('expense-inserted', (response) => {
         (response.success) ? M.toast({ html: response.message, displayLength: 1000 }) : M.toast({ html: "Error, could not registered new expense." });
-        cuantityInput.value = '';
+        quantityInput.value = '';
         categoryInput.value = '';
         descriptionInput.value = '';
         M.updateTextFields();
@@ -42,16 +42,16 @@ window.onload = function () {
 
     magicButtons.forEach(magicButton => magicButton.addEventListener("click", function () {
         newExpense(
-            this.dataset.cuantity,
+            this.dataset.quantity,
             this.dataset.category,
             this.dataset.description
         );
     }));
 
-    function newExpense(cuantity, category, description) {
+    function newExpense(quantity, category, description) {
         socket.emit('new-expense', {
             date: new Date(),
-            cuantity: cuantity,
+            quantity: parseInt(quantity),
             category: category,
             description: description
         });
