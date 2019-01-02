@@ -2,24 +2,38 @@ extends layout
 
 block today
 	.row
-		form.col.s12.m3(action='/', method='POST')
+		.col.s12.m3
 			.row
 				h5.col.s12 New expense
 				.input-field.col.s12
 					input#money-to-spend.validate.white-text(name='name', type='text', required='')
 					label.white-text(for='money-to-spend') How much did you spend?
 				.input-field.col.s12
+					select#category-spent.white-text(required='')
+						option(value='Transport', selected) Transport
+						option(value='Food') Food
+						option(value='Education') Education
+					label.white-text(for='category-spent') Category
+				.input-field.col.s12
 					textarea#spend-description.materialize-textarea.white-text(data-length='120')
 					label.white-text(for='spend-description') Description (optional)
-				.file-field.input-field.col.s12
-					.btn
-						label.white-text(for='optional-picture', style='font-size: 14px') Picture
-						input#optional-picture(type='file', name='file', accept='image/*;capture=camera')
-					.file-path-wrapper
-						label.white-text(for='#optional-picture-path') Optional
-						input#optional-picture-path.file-path.validate.white-text(type='text')
-				.input-field.col.s12
-					button.waves-effect.waves-light.btn.tooltipped(type='submit', data-position='top', data-tooltip='Save') Submit
+				a.waves-effect.waves-light.btn-large.secundary-theme
+					i.material-icons directions_bus
+				a.waves-effect.waves-light.btn-large.secundary-theme
+					i.material-icons local_dining
+				a.waves-effect.waves-light.btn-large.secundary-theme
+					i.material-icons fastfood
+				a.waves-effect.waves-light.btn-large.secundary-theme
+					i.material-icons fastfood
+				//- .file-field.input-field.col.s12
+				//- 	.btn
+				//- 		label.white-text(for='optional-picture', style='font-size: 14px') Picture
+				//- 		input#optional-picture(type='file', name='file', accept='image/*;capture=camera')
+				//- 	.file-path-wrapper
+				//- 		label.white-text(for='#optional-picture-path') Optional
+				//- 		input#optional-picture-path.file-path.validate.white-text(type='text')
+				//- .input-field.col.s12
+				//- 	button.waves-effect.waves-light.btn.tooltipped(type='submit', data-position='top', data-tooltip='Save') Submit
 		.col.s12.m9
 			.row
 				h5.col.s12 Today's expenses

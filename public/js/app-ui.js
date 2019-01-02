@@ -1,4 +1,5 @@
 window.onload = function () {
+    var socket = io("/index");
     var loader = document.getElementById('loader');
     var navbar = document.getElementById('navbar');
     var content = document.getElementById('content');
@@ -7,26 +8,35 @@ window.onload = function () {
     var tabs = document.getElementById('tabs');
     var floatingButton = document.getElementById('floating-button');
     var tooltips = document.querySelectorAll('.tooltipped');
+    var selects = document.querySelectorAll('select');
+    var submitButton = document.getElementById('submit-button');
+    var cuantityInput = document.getElementById("money-to-spend");
+    var categoryInput = document.getElementById("category-spent");
+    var descriptionInput = document.getElementById("spend-description");
     M.Modal.init(modals);
     M.Sidenav.init(navs, {});
     M.Tabs.init(tabs)
     M.FloatingActionButton.init(floatingButton);
     M.Tooltip.init(tooltips);
+    M.FormSelect.init(selects);
     loader.style.display = 'none';
     navbar.style.display = 'block';
     content.style.display = 'block';
-    var socket = io("/index");
 
-    socket.emit('hi', {
-        date: new Date(),
-        cuantity: 10,
-        user: "Luis"
+    submitButton.addEventListener('click', () => {
+        socket.emit('new-expense', {
+            date: new Date(),
+            cuantity: cuantityInput.value,
+            category: categoryInput.value,
+            description: descriptionInput.value
+        });
     });
 
-    socket.on('inserted', (object) => {
-        M.toast({
-            html: `Date: ${object.date}, Cuantity: ${object.cuantity}, User: ${object.user}`,
-            displayLength: 10000
-        });
+    socket.on('expense-inserted', (response) => {
+        (response.success) ? M.toast({ html: response.message }) : M.toast({ html: "Error, could not registered new expense." });
+        cuantityInput.value = '';
+        categoryInput.value = '';
+        descriptionInput.value = '';
+        M.updateTextFields();
     });
 }

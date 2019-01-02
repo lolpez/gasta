@@ -80,11 +80,11 @@ html(lang="en-US")
 						block today
 					#history-tab.col.s12
 						block history
-			.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
-				a#floating-button.btn-floating.btn-large.secundary-theme(href='/')
+			#submit-button.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
+				a#floating-button.btn-floating.btn-large.secundary-theme(href='javascript:void(0);')
 					i.large.material-icons send
 		script(src='./socket.io/socket.io.js')
 		script(src="/js/materialize.min.js")
 		script(src="/js/app-ui.js")
-		script(src="/js/app-installer.js")
-		script(src="/js/app-updater.js")
+		//- script(src="/js/app-installer.js")
+		//- script(src="/js/app-updater.js")

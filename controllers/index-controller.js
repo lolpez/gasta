@@ -33,10 +33,13 @@ var indexController = (io) => {
 		 * @property {Date} data.birthday - Person's birth date.
 		 * @memberof indexController
 		 */
-        socket.on('hi', (data) => {
-            console.log("client said: " + JSON.stringify(data));
+        socket.on('new-expense', (data) => {
             modelPerson.insert(data).then((expense) => {
-                io.emit('inserted', expense);
+                io.emit('expense-inserted', {
+                    success: true,
+                    message: `Bs. ${expense.cuantity} spent in ${expense.category}`,
+                    object: null
+                });
             });
         });
     });
