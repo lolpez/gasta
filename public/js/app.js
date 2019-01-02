@@ -6,7 +6,7 @@ var app = {
     }),
     init: () => {
         app.initSocket();
-        app.initDataBase();
+        //app.initDataBase();
     },
     initSocket: () => {
         app.socket.on('connect', function () {
@@ -53,6 +53,16 @@ var app = {
                 });
             }
         });
+    },
+    newExpense: (quantity, category, description) => {
+        var today = new Date();
+        app.socket.emit('client-new-expense', {
+            date: today.toISOString(),
+            quantity: parseInt(quantity),
+            category: category,
+            description: description
+        });
     }
 }
 app.init();
+app.newExpense(0.0, "GG", "WP");

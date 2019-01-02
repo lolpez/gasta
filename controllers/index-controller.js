@@ -1,4 +1,5 @@
 var modelExpense = require('../models/expense');
+var businessExpense = require('../business/expense');
 /**
  * @constructor
  * @param {SocketIO} io - Socket IO room for index router.
@@ -54,6 +55,17 @@ var indexController = (io) => {
         socket.on('get-from-dates', (data) => {
             modelExpense.getTotalFromDateRange(data.startDate, data.endDate).then((todayExpenses) => {
                 io.to(socket.id).emit('ggggg', todayExpenses);
+            });
+        });
+
+        socket.on('client-new-expense', (data) => {
+            businessExpense.newExpense(
+                data.date,
+                data.quantity,
+                data.category,
+                data.description
+            ).then((expense) => {
+                console.log(expense)
             });
         });
     });

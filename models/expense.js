@@ -47,6 +47,23 @@ var model = {
         });
     },
     /**
+     * Query selection for expense collection. Returns an array of selected documents
+     * @method select
+     * @param {object} data - Query filters. 
+     * @returns {array} 
+     * @memberof expenseModel
+     */
+    selectOne: (data) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.findOne(data).then((doc) => {
+                    resolve(doc)
+                })
+            });
+        });
+    },
+    /**
      * Insert query to for a expense document. Returns inserted document.
      * @method insert
      * @param {object} data - Query filters.
@@ -88,6 +105,49 @@ var model = {
                     model.select({ id: data.id }).then((doc) => {
                         resolve(doc[0])
                     })
+                });
+            });
+        });
+    },
+    /**
+     * Update query to for a expense document. Returns updated document.
+     * @method update
+     * @param {object} data - Query filters.
+     * @returns {object} 
+     * @property {string} data.id - expense's ID to update.
+     * @property {string} data.name - New expense's name to replace.
+     * @property {string} data.lastName - New expense's paternal and maternal last name to replace.
+     * @property {Date} data.birthday - New expense's birth date to replace.
+     * @memberof expenseModel
+    */
+    /*push: (data) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.updateOne(
+                    { _id: mongodb.ObjectID(data.id) },
+                    { $push: { details: data.object } },
+                    (err, result) => {
+                        if (err) {
+                            reject('Error updating object: ' + err);
+                        } else {
+                            resolve(result);
+                        }
+                    }
+                );
+            });
+        });
+    },*/
+    push: (data) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.findOneAndUpdate(
+                    { _id: mongodb.ObjectID(data.id) },
+                    { $push: { details: data.object } },
+                    { returnOriginal: false },
+                ).then((doc) => {
+                    resolve(doc.value)
                 });
             });
         });
