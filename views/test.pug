@@ -2,7 +2,8 @@ head
     link(rel="shortcut icon", type="image/x-icon", href="/img/gasta-favicon.ico")
 body
     h1 Socket test
-    script(src='./socket.io/socket.io.js')
+    script(src='/js/nedb.min.js')
+    script(src='/socket.io/socket.io.js')
     script.
         var socket = io("/index");
 
@@ -30,6 +31,31 @@ body
         var today = new Date();
 
         function checkZero(i) {
-            if (i < 10) {i = "0" + i};
+            if (i < 10) i = `0${i}`;
             return i;
         }
+
+        var db = new Nedb({
+            filename: 'gasta-db.db',
+            autoload: true
+        })
+        
+
+        // Get user total spent
+        db.findOne({ _id: '123' }, function (err, doc) {
+            if (doc){
+                //if the user total spent exits, then show it and try to refresh it from server
+                console.log(doc)
+            }else{
+                //if the user total spent does not exits, then create a new one
+                db.insert({ _id: '123', total: 123.50 }, function (err) {
+                    if (err){
+                        alert(err)
+                    }else{
+                        db.findOne({ _id: '123' }, function (err, doc) {
+                            console.log(doc)
+                        });
+                    }                    
+                });
+            }
+        });
