@@ -4,7 +4,6 @@ block today
 	.row
 		.col.s12.m3
 			.row
-				h5.col.s12 New expense
 				.input-field.col.s12
 					input#money-to-spend.validate.white-text(name='name', type='text', required='')
 					label.white-text(for='money-to-spend') How much did you spend?
@@ -17,14 +16,35 @@ block today
 				.input-field.col.s12
 					textarea#spend-description.materialize-textarea.white-text(data-length='120')
 					label.white-text(for='spend-description') Description (optional)
-				a.waves-effect.waves-light.btn-large.secundary-theme
-					i.material-icons directions_bus
-				a.waves-effect.waves-light.btn-large.secundary-theme
-					i.material-icons local_dining
-				a.waves-effect.waves-light.btn-large.secundary-theme
-					i.material-icons fastfood
-				a.waves-effect.waves-light.btn-large.secundary-theme
-					i.material-icons fastfood
+				.col.s12
+					label.white-text Magic buttons
+					ul.quick-access
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons directions_bus
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons local_dining
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons fastfood
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons filter_1
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons filter_2
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons filter_3
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons filter_4
+						li
+							a.waves-effect.waves-light.btn-large.secundary-theme
+								i.material-icons filter_5
+				h5.col.s12 Today´s spent: Bs.
+					span#spent-number
 				//- .file-field.input-field.col.s12
 				//- 	.btn
 				//- 		label.white-text(for='optional-picture', style='font-size: 14px') Picture
@@ -34,9 +54,6 @@ block today
 				//- 		input#optional-picture-path.file-path.validate.white-text(type='text')
 				//- .input-field.col.s12
 				//- 	button.waves-effect.waves-light.btn.tooltipped(type='submit', data-position='top', data-tooltip='Save') Submit
-		.col.s12.m9
-			.row
-				h5.col.s12 Today's expenses
 block history
 	.row
 		.col.s12.m3

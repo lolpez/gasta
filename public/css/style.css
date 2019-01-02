@@ -27,7 +27,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"], .select-dropdown {
     color: white
 }
 
@@ -83,4 +83,14 @@ body {
 
 .spinner-secundary-theme{
     border-color: #4300a0;
+}
+
+ul.quick-access {
+    white-space:nowrap;
+    overflow-x: auto;
+
+}
+ 
+ul.quick-access li {
+    display:inline;
 }
