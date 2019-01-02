@@ -13,6 +13,7 @@ window.onload = function () {
     var cuantityInput = document.getElementById("money-to-spend");
     var categoryInput = document.getElementById("category-spent");
     var descriptionInput = document.getElementById("spend-description");
+    var magicButtons = document.querySelectorAll('.magic-button');
     M.Modal.init(modals);
     M.Sidenav.init(navs, {});
     M.Tabs.init(tabs)
@@ -24,19 +25,35 @@ window.onload = function () {
     content.style.display = 'block';
 
     submitButton.addEventListener('click', () => {
-        socket.emit('new-expense', {
-            date: new Date(),
-            cuantity: cuantityInput.value,
-            category: categoryInput.value,
-            description: descriptionInput.value
-        });
+        newExpense(
+            cuantityInput.value,
+            categoryInput.value,
+            descriptionInput.value
+        );
     });
 
     socket.on('expense-inserted', (response) => {
-        (response.success) ? M.toast({ html: response.message }) : M.toast({ html: "Error, could not registered new expense." });
+        (response.success) ? M.toast({ html: response.message, displayLength: 1000 }) : M.toast({ html: "Error, could not registered new expense." });
         cuantityInput.value = '';
         categoryInput.value = '';
         descriptionInput.value = '';
         M.updateTextFields();
     });
+
+    magicButtons.forEach(magicButton => magicButton.addEventListener("click", function () {
+        newExpense(
+            this.dataset.cuantity,
+            this.dataset.category,
+            this.dataset.description
+        );
+    }));
+
+    function newExpense(cuantity, category, description) {
+        socket.emit('new-expense', {
+            date: new Date(),
+            cuantity: cuantity,
+            category: category,
+            description: description
+        });
+    }
 }
