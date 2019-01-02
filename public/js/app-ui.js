@@ -14,6 +14,7 @@ window.onload = function () {
     var categoryInput = document.getElementById("category-spent");
     var descriptionInput = document.getElementById("spend-description");
     var magicButtons = document.querySelectorAll('.magic-button');
+    var todayTotalSpent = document.getElementById("spent-number");
     M.Modal.init(modals);
     M.Sidenav.init(navs, {});
     M.Tabs.init(tabs)
@@ -33,11 +34,16 @@ window.onload = function () {
     });
 
     socket.on('expense-inserted', (response) => {
-        (response.success) ? M.toast({ html: response.message, displayLength: 1000 }) : M.toast({ html: "Error, could not registered new expense." });
+        if (!response.success) {
+            M.toast({ html: "Error, could not registered new expense." });
+            return;
+        }
+        todayTotalSpent.innerHTML = response.total;
         quantityInput.value = '';
         categoryInput.value = '';
         descriptionInput.value = '';
         M.updateTextFields();
+        M.toast({ html: response.message, displayLength: 1000 });
     });
 
     magicButtons.forEach(magicButton => magicButton.addEventListener("click", function () {

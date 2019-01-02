@@ -10,12 +10,12 @@ var indexController = (io) => {
     var pages = {
         /* GET home page. */
         mainPage: (req, res, next) => {
-            modelExpense.getTodaySpent().then((expenses) => {
-                console.log(expenses)
-            });
-            res.render("index", {
-                title: "Gasta",
-                version: "0.0.1"
+            modelExpense.getTodaySpent().then((todayExpenses) => {
+                res.render("index", {
+                    title: "Gasta",
+                    version: "0.0.1",
+                    total: todayExpenses.total
+                });
             });
         }
     }
@@ -26,7 +26,6 @@ var indexController = (io) => {
      * @memberof indexController
      */
     io.on('connection', (socket) => {
-        console.log(socket.id + "connected")
 		/**
 		 * Socket listener for insert events.
 		 * @function socket-onInsert
@@ -38,10 +37,12 @@ var indexController = (io) => {
 		 */
         socket.on('new-expense', (data) => {
             modelExpense.insert(data).then((expense) => {
-                io.emit('expense-inserted', {
-                    success: true,
-                    message: `Bs. ${expense.quantity} spent in ${expense.category}`,
-                    object: null
+                modelExpense.getTodaySpent().then((todayExpenses) => {
+                    io.emit('expense-inserted', {
+                        success: true,
+                        message: `Bs. ${expense.quantity} spent in ${expense.category}`,
+                        total: todayExpenses.total
+                    });
                 });
             });
         });

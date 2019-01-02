@@ -126,13 +126,13 @@ var model = {
                     {
                         $group: {
                             _id: null,
-                            totalValue: { $sum: "$quantity" },
+                            total: { $sum: "$quantity" },
                             count: { $sum: 1 }
                         }
                     }
                 ]).toArray((err, docs) => {
                     assert.equal(err, null);
-                    resolve(docs);
+                    resolve(docs[0]);
                 });
             });
         });
