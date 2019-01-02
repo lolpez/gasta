@@ -26,6 +26,10 @@ var indexController = (io) => {
      * @memberof indexController
      */
     io.on('connection', (socket) => {
+        io.to(socket.id).emit('user-connected', {
+            success: true,
+            message: `User ${socket.id} connected successfully`
+        });
 		/**
 		 * Socket listener for insert events.
 		 * @function socket-onInsert
@@ -38,12 +42,18 @@ var indexController = (io) => {
         socket.on('new-expense', (data) => {
             modelExpense.insert(data).then((expense) => {
                 modelExpense.getTodaySpent().then((todayExpenses) => {
-                    io.emit('expense-inserted', {
+                    io.to(socket.id).emit('expense-inserted', {
                         success: true,
                         message: `Bs. ${expense.quantity} spent in ${expense.category}`,
                         total: todayExpenses.total
                     });
                 });
+            });
+        });
+
+        socket.on('get-from-dates', (data) => {
+            modelExpense.getTotalFromDateRange(data.startDate, data.endDate).then((todayExpenses) => {
+                io.to(socket.id).emit('ggggg', todayExpenses);
             });
         });
     });

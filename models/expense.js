@@ -136,8 +136,33 @@ var model = {
                 });
             });
         });
+    },
+    getTotalFromDateRange: (startDate, endDate) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.aggregate([
+                    {
+                        $match: {
+                            date: {
+                                $gte: startDate,
+                                $lt: endDate
+                            }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            total: { $sum: "$quantity" }
+                        }
+                    }
+                ]).toArray((err, docs) => {
+                    assert.equal(err, null);
+                    resolve(docs[0]);
+                });
+            });
+        });
     }
-
 }
 
 module.exports = model;
