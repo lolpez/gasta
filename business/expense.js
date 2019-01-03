@@ -6,15 +6,19 @@ var model = {
         return new Promise((resolve, reject) => {
             modelExpense.selectOne({ date: new Date(`${date.split("T")[0]}T00:00:00.000Z`) }).then((doc) => {
                 if (doc) {
-                    modelExpense.push({
+                    var id = new mongodb.ObjectID();
+                    var newDetail = {};
+                    newDetail["details." + id.toString()] = {
+                        _id: id,
+                        date: new Date(date),
+                        quantity: quantity,
+                        category: category,
+                        description: description
+                    };
+                    modelExpense.setToExpenseDetail({
                         id: doc._id,
-                        object: {
-                            _id: new mongodb.ObjectID(),
-                            date: new Date(date),
-                            quantity: quantity,
-                            category: category,
-                            description: description
-                        }
+                        object: newDetail,
+                        expenseId: id
                     }).then((doc) => {
                         resolve(doc);
                     });
@@ -22,7 +26,7 @@ var model = {
                     var id = new mongodb.ObjectID();
                     var details = {};
                     details[id.toString()] = {
-                        _id: new mongodb.ObjectID(),
+                        _id: id,
                         date: new Date(date),
                         quantity: quantity,
                         category: category,
