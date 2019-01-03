@@ -31,6 +31,10 @@ body {
     color: white
 }
 
+#top-menu{
+    display: contents;
+}
+
 #content{
     display: none;
     margin-top: 10vh;
@@ -77,10 +81,6 @@ body {
     background-position: center;
 }
 
-#navbar{
-    display: contents;
-}
-
 .spinner-secundary-theme{
     border-color: #4300a0;
 }
@@ -88,7 +88,6 @@ body {
 ul.quick-access {
     white-space:nowrap;
     overflow-x: auto;
-
 }
  
 ul.quick-access li {

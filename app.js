@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/GG', indexRouter(ioIndex));
-app.use('/', pageRouter);
+app.use('/', indexRouter(ioIndex));
+app.use('/GG', pageRouter);
 
 // use HTTPS
 app.use(function (req, res, next) {

@@ -21,7 +21,7 @@ html(lang="en-US")
 					.circle-clipper.right
 						.circle
 			| Loading
-		#navbar.navbar-fixed
+		#top-menu.navbar-fixed
 			nav.nav-extended.secundary-theme
 				.container
 					.nav-wrapper
@@ -36,7 +36,7 @@ html(lang="en-US")
 								a.update-button.tooltipped.disabled(href='javascript:void(0);', data-position='down', data-tooltip='No updates available')
 									i.material-icons cached
 				.nav-content
-					ul#tabs.tabs.tabs-transparent.row
+					ul.tabs.tabs-transparent.row
 						li.tab.col.s6
 							a(href='#today-tab') Today
 						li.tab.col.s6
@@ -83,8 +83,7 @@ html(lang="en-US")
 			#submit-button.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
 				a#floating-button.btn-floating.btn-large.secundary-theme(href='javascript:void(0);')
 					i.large.material-icons send
-		script(src='./socket.io/socket.io.js')
 		script(src="/js/materialize.min.js")
+		script(src='/js/nedb.min.js')
+		script(src='./socket.io/socket.io.js')
 		script(src="/js/app-ui.js")
-		script(src="/js/app-installer.js")
-		script(src="/js/app-updater.js")
