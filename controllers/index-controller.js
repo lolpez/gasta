@@ -44,23 +44,6 @@ var indexController = (io) => {
 		 * @property {Date} data.birthday - Person's birth date.
 		 * @memberof indexController
 		 */
-        socket.on('new-expense', (data) => {
-            modelExpense.insert(data).then((expense) => {
-                modelExpense.getTodaySpent().then((todayExpenses) => {
-                    io.to(socket.id).emit('expense-inserted', {
-                        success: true,
-                        message: `Bs. ${expense.quantity} spent in ${expense.category}`,
-                        total: todayExpenses.total
-                    });
-                });
-            });
-        });
-
-        socket.on('get-from-dates', (data) => {
-            modelExpense.getTotalFromDateRange(data.startDate, data.endDate).then((todayExpenses) => {
-                io.to(socket.id).emit('ggggg', todayExpenses);
-            });
-        });
 
         socket.on('client-new-expense', (data) => {
             businessExpense.newExpense(
@@ -82,7 +65,7 @@ var indexController = (io) => {
                 data.endDate
             ).then((result) => {
                 io.to(socket.id).emit('server-expenses-from-dates', {
-                    total: result.total
+                    totalSpent: result.total
                 });
             });
         });

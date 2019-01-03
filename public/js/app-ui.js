@@ -8,6 +8,9 @@ var app = {
             endDate: `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`
         }
     }),
+    getTodaySpentInterval: () => {
+        app.getFromDates(`${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`, `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`)
+    },
     dataBase: new Nedb({
         filename: 'gasta-db.db',
         autoload: true
@@ -84,15 +87,14 @@ var app = {
     },
     initSocket: () => {
         app.socket.on('connect', () => {
+            setInterval(app.getTodaySpentInterval, 500);
             if (app.wentOffline) {
                 M.toast({ html: "You are now online." });
             }
-            //console.log(response)
-            //var today = new Date();
-            //app.getFromDates(`${today.toISOString().split("T")[0]}T00:00:00.000Z`, `${today.toISOString().split("T")[0]}T23:59:59.999Z`)
         });
 
         app.socket.on('disconnect', function () {
+            clearInterval(app.getTodaySpentInterval);
             app.socket.sendBuffer = [];
             app.wentOffline = true;
             M.toast({ html: "Offline mode activated." });
