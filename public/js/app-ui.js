@@ -45,7 +45,7 @@ var app = {
             );
         }));
         app.eleSubmitButton.addEventListener('click', () => {
-            newExpense(
+            app.newExpense(
                 app.eleQuantityInput.value,
                 app.eleCategoryInput.value,
                 app.eleDescriptionInput.value,

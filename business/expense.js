@@ -16,9 +16,8 @@ var model = {
                             description: description
                         }
                     }).then((doc) => {
-                        console.log("THIS IS IT")
-                        resolve(doc)
-                    })
+                        resolve(doc);
+                    });
                 } else {
                     modelExpense.insert({
                         date: new Date(`${date.split("T")[0]}T00:00:00.000Z`),
