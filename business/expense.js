@@ -4,7 +4,7 @@ var mongodb = require('mongodb');
 var model = {
     newExpense: (date, quantity, category, description) => {
         return new Promise((resolve, reject) => {
-            modelExpense.selectOne({ date: date.split("T")[0] }).then((doc) => {
+            modelExpense.selectOne({ date: new Date(`${date.split("T")[0]}T00:00:00.000Z`) }).then((doc) => {
                 if (doc) {
                     modelExpense.push({
                         id: doc._id,
@@ -21,7 +21,7 @@ var model = {
                     })
                 } else {
                     modelExpense.insert({
-                        date: date.split("T")[0],
+                        date: new Date(`${date.split("T")[0]}T00:00:00.000Z`),
                         details: [
                             {
                                 _id: new mongodb.ObjectID(),
@@ -37,7 +37,17 @@ var model = {
                 }
             })
         });
-    }
+    },
+    getExpensesFromDates: (startDate, endDate) => {
+        return new Promise((resolve, reject) => {
+            modelExpense.getExpensesFromDates({
+                startDate: new Date(startDate),
+                endDate: new Date(endDate)
+            }).then((doc) => {
+                resolve(doc)
+            })
+        });
+    },
 }
 
 module.exports = model;

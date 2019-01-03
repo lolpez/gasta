@@ -120,24 +120,6 @@ var model = {
      * @property {Date} data.birthday - New expense's birth date to replace.
      * @memberof expenseModel
     */
-    /*push: (data) => {
-        return new Promise((resolve, reject) => {
-            con.then((db) => {
-                const collection = db.collection(collectionName);
-                collection.updateOne(
-                    { _id: mongodb.ObjectID(data.id) },
-                    { $push: { details: data.object } },
-                    (err, result) => {
-                        if (err) {
-                            reject('Error updating object: ' + err);
-                        } else {
-                            resolve(result);
-                        }
-                    }
-                );
-            });
-        });
-    },*/
     push: (data) => {
         return new Promise((resolve, reject) => {
             con.then((db) => {
@@ -148,6 +130,45 @@ var model = {
                     { returnOriginal: false },
                 ).then((doc) => {
                     resolve(doc.value)
+                });
+            });
+        });
+    },
+    /**
+     * Update query to for a expense document. Returns updated document.
+     * @method update
+     * @param {object} data - Query filters.
+     * @returns {object} 
+     * @property {string} data.id - expense's ID to update.
+     * @property {string} data.name - New expense's name to replace.
+     * @property {string} data.lastName - New expense's paternal and maternal last name to replace.
+     * @property {Date} data.birthday - New expense's birth date to replace.
+     * @memberof expenseModel
+    */
+    getExpensesFromDates: (data) => {
+        return new Promise((resolve, reject) => {
+            con.then((db) => {
+                const collection = db.collection(collectionName);
+                collection.aggregate([
+                    {
+                        $match: {
+                            date: {
+                                $gte: data.startDate,
+                                $lt: data.endDate
+                            }
+                        }
+                    },
+                    {
+                        $unwind: "$details"
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            total: { $sum: "$details.quantity" }
+                        }
+                    }
+                ]).toArray((err, docs) => {
+                    resolve(docs)
                 });
             });
         });

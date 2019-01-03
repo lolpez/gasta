@@ -68,6 +68,15 @@ var indexController = (io) => {
                 console.log(expense)
             });
         });
+
+        socket.on('client-get-expenses-from-dates', (data) => {
+            businessExpense.getExpensesFromDates(
+                data.startDate,
+                data.endDate
+            ).then((expense) => {
+                console.log(expense)
+            });
+        });
     });
     return pages;
 }

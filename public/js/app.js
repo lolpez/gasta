@@ -62,7 +62,15 @@ var app = {
             category: category,
             description: description
         });
+    },
+    getFromDates: (startDate, endDate) => {
+        app.socket.emit('client-get-expenses-from-dates', {
+            startDate: startDate,
+            endDate: endDate
+        });
     }
 }
 app.init();
-app.newExpense(0.0, "GG", "WP");
+app.newExpense(10, "GG", "WP");
+var today = new Date();
+app.getFromDates(`${today.toISOString().split("T")[0]}T00:00:00.000Z`, `${today.toISOString().split("T")[0]}T23:59:59.999Z`)
