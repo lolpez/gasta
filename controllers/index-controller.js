@@ -62,7 +62,10 @@ var indexController = (io) => {
                 data.category,
                 data.description
             ).then((expense) => {
-                console.log(expense)
+                io.to(socket.id).emit('server-expense-inserted', {
+                    success: true,
+                    message: `Bs. ${expense.quantity} spent in ${expense.category}`
+                });
             });
         });
 
@@ -70,8 +73,10 @@ var indexController = (io) => {
             businessExpense.getExpensesFromDates(
                 data.startDate,
                 data.endDate
-            ).then((expense) => {
-                console.log(expense)
+            ).then((result) => {
+                io.to(socket.id).emit('server-expenses-from-dates', {
+                    total: result.total
+                });
             });
         });
     });

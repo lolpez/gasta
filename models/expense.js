@@ -184,16 +184,23 @@ var model = {
                         }
                     },
                     {
-                        $unwind: "$details"
+                        $addFields: {
+                            dayExpenses: {
+                                $objectToArray: "$details"
+                            }
+                        }
+                    },
+                    {
+                        $unwind: "$dayExpenses"
                     },
                     {
                         $group: {
                             _id: null,
-                            total: { $sum: "$details.quantity" }
+                            total: { $sum: "$dayExpenses.v.quantity" }
                         }
                     }
                 ]).toArray((err, docs) => {
-                    resolve(docs)
+                    resolve(docs[0])
                 });
             });
         });

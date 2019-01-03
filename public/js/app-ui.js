@@ -28,7 +28,6 @@ var app = {
         //app.initDataBase();
         app.initSocket();
         //app.initServiceWorker();
-        app.newExpense(10, "Miguel", "lopez", new Date());
     },
     initUI: () => {
         ///M.Modal.init(modals);
@@ -79,14 +78,7 @@ var app = {
     initSocket: () => {
         app.socket.on('connect', function () {
             var today = new Date();
-            app.socket.emit('get-from-dates', {
-                startDate: `${today.getFullYear()}-${checkZero(today.getMonth() + 1)}-${checkZero(today.getDate())}T00:00:00.000Z`,
-                endDate: `${today.getFullYear()}-${checkZero(today.getMonth() + 1)}-${checkZero(today.getDate())}T23:59:59.999Z`
-            });
-            function checkZero(i) {
-                if (i < 10) i = `0${i}`;
-                return i;
-            }
+            app.getFromDates(`${today.toISOString().split("T")[0]}T00:00:00.000Z`, `${today.toISOString().split("T")[0]}T23:59:59.999Z`)
         });
 
         app.socket.on('disconnect', function () {
@@ -99,7 +91,7 @@ var app = {
             console.log(response);
         });
 
-        app.socket.on('ggggg', (response) => {
+        app.socket.on('server-expense-inserted', (response) => {
             console.log(response);
             /*if (!response.success) {
                 M.toast({ html: "Error, could not registered new expense." });
@@ -111,6 +103,10 @@ var app = {
             descriptionInput.value = '';
             M.updateTextFields();
             M.toast({ html: response.message, displayLength: 1000 });*/
+        });
+
+        app.socket.on('server-expenses-from-dates', (response) => {
+            console.log(response);
         });
     },
     initServiceWorker: () => {
