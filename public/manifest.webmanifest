@@ -12,5 +12,6 @@
     ],
     "name": "Gasta",
     "short_name": "Gasta",
-    "start_url": "/"
+    "start_url": "/",
+    "scope": "/"
 }
