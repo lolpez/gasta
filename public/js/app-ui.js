@@ -33,10 +33,10 @@ var app = {
     eleUpdateButtons: document.getElementsByClassName("update-button"),
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
+        app.initServiceWorker();
         app.initUI();
         app.initDataBase();
         app.initSocket();
-        app.initServiceWorker();
     },
     initUI: () => {
         ///M.Modal.init(modals);

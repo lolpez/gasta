@@ -14,14 +14,16 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const PRECACHE = 'gasta-sw-V1A';
+const PRECACHE = 'gasta-sw-V2A';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
 const PRECACHE_URLS = [
 	'/',
 	'/css/style.css',
+	'/css/materialize.min.css',
 	'/fonts/material-icons.woff2',
+	'/js/materialize.min.js',
 	'/js/app-ui.js'
 ];
 
