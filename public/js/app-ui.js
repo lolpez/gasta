@@ -1,4 +1,3 @@
-// window.onload = function () {
 var todayDate = new Date();
 var app = {
     wentOffline: false,
@@ -35,9 +34,9 @@ var app = {
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
         app.initUI();
-        //app.initDataBase();
+        app.initDataBase();
         app.initSocket();
-        //app.initServiceWorker();
+        app.initServiceWorker();
     },
     initUI: () => {
         ///M.Modal.init(modals);
@@ -206,4 +205,3 @@ var app = {
 }
 
 app.init();
-// }
