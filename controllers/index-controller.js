@@ -11,12 +11,9 @@ var indexController = (io) => {
     var pages = {
         /* GET home page. */
         mainPage: (req, res, next) => {
-            modelExpense.getTodaySpent().then((todayExpenses) => {
-                res.render("index", {
-                    title: "Gasta",
-                    version: "0.0.1",
-                    total: todayExpenses.total
-                });
+            res.render("index", {
+                title: "Gasta",
+                version: "0.0.1",
             });
         }
     }

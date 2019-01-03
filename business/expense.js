@@ -19,17 +19,18 @@ var model = {
                         resolve(doc);
                     });
                 } else {
+                    var id = new mongodb.ObjectID();
+                    var details = {};
+                    details[id.toString()] = {
+                        _id: new mongodb.ObjectID(),
+                        date: new Date(date),
+                        quantity: quantity,
+                        category: category,
+                        description: description
+                    }
                     modelExpense.insert({
                         date: new Date(`${date.split("T")[0]}T00:00:00.000Z`),
-                        details: [
-                            {
-                                _id: new mongodb.ObjectID(),
-                                date: new Date(date),
-                                quantity: quantity,
-                                category: category,
-                                description: description
-                            }
-                        ]
+                        details: details
                     }).then((doc) => {
                         resolve(doc)
                     })

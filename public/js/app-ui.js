@@ -25,9 +25,10 @@ var app = {
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
         app.initUI();
-        app.initDataBase();
+        //app.initDataBase();
         app.initSocket();
-        app.initServiceWorker();
+        //app.initServiceWorker();
+        app.newExpense(10, "GG", "WP", new Date());
     },
     initUI: () => {
         ///M.Modal.init(modals);
