@@ -24,10 +24,17 @@ var indexController = (io) => {
      * @memberof indexController
      */
     io.on('connection', (socket) => {
-        io.to(socket.id).emit('user-connected', {
-            success: true,
-            message: `User ${socket.id} connected successfully`
+        businessExpense.getExpensesFromDates(
+            socket.handshake.query.startDate,
+            socket.handshake.query.endDate
+        ).then((result) => {
+            io.to(socket.id).emit('server-user-connected', {
+                success: true,
+                message: `User ${socket.id} connected successfully.`,
+                totalSpent: result.total
+            });
         });
+
 		/**
 		 * Socket listener for insert events.
 		 * @function socket-onInsert

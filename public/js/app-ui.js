@@ -1,6 +1,13 @@
 // window.onload = function () {
+var todayDate = new Date();
 var app = {
-    socket: io("/index"),
+    wentOffline: false,
+    socket: io("/index", {
+        query: {
+            startDate: `${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`,
+            endDate: `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`
+        }
+    }),
     dataBase: new Nedb({
         filename: 'gasta-db.db',
         autoload: true
@@ -76,37 +83,39 @@ var app = {
         });
     },
     initSocket: () => {
-        app.socket.on('connect', function () {
-            var today = new Date();
-            app.getFromDates(`${today.toISOString().split("T")[0]}T00:00:00.000Z`, `${today.toISOString().split("T")[0]}T23:59:59.999Z`)
+        app.socket.on('connect', () => {
+            if (app.wentOffline) {
+                M.toast({ html: "You are now online." });
+            }
+            //console.log(response)
+            //var today = new Date();
+            //app.getFromDates(`${today.toISOString().split("T")[0]}T00:00:00.000Z`, `${today.toISOString().split("T")[0]}T23:59:59.999Z`)
         });
 
         app.socket.on('disconnect', function () {
             app.socket.sendBuffer = [];
-            console.log('Offline mode activated');
+            app.wentOffline = true;
+            M.toast({ html: "Offline mode activated." });
         });
 
-        app.socket.on('user-connected', (response) => {
-            //get updates from server
-            console.log(response);
+        app.socket.on('server-user-connected', (response) => {
+            app.eleTodayTotalSpent.innerHTML = response.totalSpent;
         });
 
         app.socket.on('server-expense-inserted', (response) => {
-            console.log(response);
-            /*if (!response.success) {
+            if (!response.success) {
                 M.toast({ html: "Error, could not registered new expense." });
                 return;
             }
-            todayTotalSpent.innerHTML = response.total;
-            quantityInput.value = '';
-            categoryInput.value = '';
-            descriptionInput.value = '';
+            app.eleQuantityInput.value = '';
+            app.eleCategoryInput.value = '';
+            app.eleDescriptionInput.value = '';
             M.updateTextFields();
-            M.toast({ html: response.message, displayLength: 1000 });*/
+            M.toast({ html: response.message, displayLength: 1000 });
         });
 
         app.socket.on('server-expenses-from-dates', (response) => {
-            console.log(response);
+            app.eleTodayTotalSpent.innerHTML = response.totalSpent;
         });
     },
     initServiceWorker: () => {
