@@ -8,12 +8,21 @@ var app = {
         }
     }),
     getTodaySpentInterval: () => {
-        app.getFromDates(`${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`, `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`)
+        app.getFromDates(
+            app.getLocalTimeFormat(new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate())),
+            app.getLocalTimeFormat(new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), 23, 59, 59, 999))
+        );
     },
     dataBase: new Nedb({
         filename: 'gasta-db.db',
         autoload: true
     }),
+    getLocalTimeFormat: (date) => {
+        return `${date.getFullYear()}-${checkAndAddZero(date.getMonth() + 1)}-${checkAndAddZero(date.getDate())}T${checkAndAddZero(date.getHours())}:${checkAndAddZero(date.getMinutes())}:${checkAndAddZero(date.getSeconds())}.${checkAndAddZero(date.getMilliseconds())}Z`;
+        function checkAndAddZero(number) {
+            return (number < 10) ? `0${number}` : number;
+        }
+    },
     deferredUpdater: null,
     eleLoader: document.getElementById('loader'),
     eleTopMenu: document.getElementById('top-menu'),
@@ -33,7 +42,7 @@ var app = {
     eleUpdateButtons: document.getElementsByClassName("update-button"),
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
-        app.initServiceWorker();
+        //app.initServiceWorker();
         app.initUI();
         app.initDataBase();
         app.initSocket();
@@ -190,7 +199,7 @@ var app = {
     },
     newExpense: (quantity, category, description, date) => {
         app.socket.emit('client-new-expense', {
-            date: date.toISOString(),
+            date: getLocalTimeFormat(date),
             quantity: parseInt(quantity),
             category: category,
             description: description
