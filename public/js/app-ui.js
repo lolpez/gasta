@@ -73,7 +73,6 @@ var app = {
         app.eleLoader.style.display = 'none';
         app.eleTopMenu.style.display = 'block';
         app.eleContent.style.display = 'block';
-        if (sessionStorage.getItem("is_reloaded")) app.showMessage('App updated!');
     },
     initDataBase: () => {
         app.dataBase.findOne({ _id: '123' }, function (err, doc) {
@@ -178,7 +177,6 @@ var app = {
             });
             navigator.serviceWorker.addEventListener('controllerchange', function () {
                 if (refreshEvent) return;
-                sessionStorage.setItem("is_reloaded", true);
                 window.location.reload();
                 refreshEvent = true;
             });
