@@ -199,7 +199,7 @@ var app = {
     },
     newExpense: (quantity, category, description, date) => {
         app.socket.emit('client-new-expense', {
-            date: getLocalTimeFormat(date),
+            date: app.getLocalTimeFormat(date),
             quantity: parseInt(quantity),
             category: category,
             description: description
