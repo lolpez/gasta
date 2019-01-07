@@ -42,7 +42,7 @@ var app = {
     eleUpdateButtons: document.getElementsByClassName("update-button"),
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
-        //app.initServiceWorker();
+        app.initServiceWorker();
         app.initUI();
         app.initDataBase();
         app.initSocket();
