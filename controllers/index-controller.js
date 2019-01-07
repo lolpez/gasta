@@ -31,7 +31,7 @@ var indexController = (io) => {
             io.to(socket.id).emit('server-user-connected', {
                 success: true,
                 message: `User ${socket.id} connected successfully.`,
-                totalSpent: result.total
+                totalSpent: (result) ? result.total : 0
             });
         });
 
@@ -65,7 +65,7 @@ var indexController = (io) => {
                 data.endDate
             ).then((result) => {
                 io.to(socket.id).emit('server-expenses-from-dates', {
-                    totalSpent: result.total
+                    totalSpent: (result) ? result.total : 0
                 });
             });
         });
