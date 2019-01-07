@@ -97,7 +97,7 @@ var app = {
         app.socket.on('connect', () => {
             setInterval(app.getTodaySpentInterval, 500);
             if (app.wentOffline) {
-                M.toast({ html: "You are now online." });
+                app.showMessage('You are now online.');
             }
         });
 
@@ -105,7 +105,7 @@ var app = {
             clearInterval(app.getTodaySpentInterval);
             app.socket.sendBuffer = [];
             app.wentOffline = true;
-            M.toast({ html: "Offline mode activated." });
+            app.showMessage('Offline mode activated.');
         });
 
         app.socket.on('server-user-connected', (response) => {
@@ -114,14 +114,14 @@ var app = {
 
         app.socket.on('server-expense-inserted', (response) => {
             if (!response.success) {
-                M.toast({ html: "Error, could not registered new expense." });
+                app.showMessage('Error, could not registered new expense.');
                 return;
             }
             app.eleQuantityInput.value = '';
             app.eleCategoryInput.value = '';
             app.eleDescriptionInput.value = '';
             M.updateTextFields();
-            M.toast({ html: response.message, displayLength: 1000 });
+            app.showMessage(response.message);
         });
 
         app.socket.on('server-expenses-from-dates', (response) => {
@@ -141,9 +141,9 @@ var app = {
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then((choiceResult) => {
                         if (choiceResult.outcome === 'accepted') {
-                            M.toast({ html: 'Installing app!' });
+                            app.showMessage('Installing app!');
                         } else {
-                            M.toast({ html: 'You can install the app later by clicking the download button.' });
+                            app.showMessage('You can install the app later by clicking the download button.');
                         }
                         deferredPrompt = null;
                     })
@@ -164,10 +164,7 @@ var app = {
                                         app.eleUpdateButtons[i].dataset.tooltip = 'Update available';
                                         app.eleUpdateButtons[i].addEventListener('click', app.updateApp, false);
                                     }
-                                    M.toast({
-                                        html: `A new version is available! <a href='javascript:void(0);' onclick='app.updateApp()' class='btn-flat toast-action'>Update</a>`,
-                                        displayLength: 10000
-                                    });
+                                    app.showMessage(`A new version is available! <a href='javascript:void(0);' onclick='app.updateApp()' class='btn-flat toast-action'>Update</a>`);
                                 }
                                 // No update available
                                 break;
@@ -209,6 +206,13 @@ var app = {
         app.socket.emit('client-get-expenses-from-dates', {
             startDate: startDate,
             endDate: endDate
+        });
+    },
+    showMessage: (html) => {
+        M.Toast.dismissAll();
+        M.toast({
+            html: html,
+            displayLength: 3000
         });
     }
 }
