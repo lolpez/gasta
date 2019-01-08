@@ -47,7 +47,7 @@ var app = {
     initUI: () => {
         ///M.Modal.init(modals);
         if ('ontouchstart' in window) {
-            var inputs = document.getElementsByTagName('input');
+            /*var inputs = document.getElementsByTagName('input');
             for (var i = 0; i < inputs.length; ++i) {
                 inputs[i].addEventListener("focus", () => {
                     document.body.style.position = 'absolute';
@@ -55,7 +55,7 @@ var app = {
                 inputs[i].addEventListener("blur", () => {
                     document.body.style.position = '';
                 })
-            }
+            }*/
         }
         M.Sidenav.init(app.eleNavs, {});
         M.Tabs.init(app.eleTabs);
