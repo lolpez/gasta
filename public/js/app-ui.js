@@ -48,11 +48,11 @@ var app = {
         ///M.Modal.init(modals);
         if ('ontouchstart' in window) {
             var inputs = document.getElementsByTagName('input');
-            for (var i = 0; index < inputs.length; ++index) {
-                inputs[index].addEventListener("focus", () => {
+            for (var i = 0; i < inputs.length; ++i) {
+                inputs[i].addEventListener("focus", () => {
                     document.body.style.position = 'absolute';
                 })
-                inputs[index].addEventListener("blur", () => {
+                inputs[i].addEventListener("blur", () => {
                     document.body.style.position = '';
                 })
             }
