@@ -1,6 +1,6 @@
 var todayDate = new Date();
 var app = {
-    wentOffline: false,
+    isOffline: false,
     socket: io("/index", {
         query: {
             startDate: `${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`,
@@ -13,16 +13,13 @@ var app = {
             app.getLocalTimeFormat(new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), 23, 59, 59, 999))
         );
     },
-    dataBase: new Nedb({
-        filename: 'gasta-db.db',
-        autoload: true
-    }),
     getLocalTimeFormat: (date) => {
         return `${date.getFullYear()}-${checkAndAddZero(date.getMonth() + 1)}-${checkAndAddZero(date.getDate())}T${checkAndAddZero(date.getHours())}:${checkAndAddZero(date.getMinutes())}:${checkAndAddZero(date.getSeconds())}.${checkAndAddZero(date.getMilliseconds())}Z`;
         function checkAndAddZero(number) {
             return (number < 10) ? `0${number}` : number;
         }
     },
+    dataBase: null,
     deferredUpdater: null,
     eleLoader: document.getElementById('loader'),
     eleTopMenu: document.getElementById('top-menu'),
@@ -42,13 +39,24 @@ var app = {
     eleUpdateButtons: document.getElementsByClassName("update-button"),
     eleInstallButtons: document.getElementsByClassName("install-button"),
     init: () => {
-        app.initServiceWorker();
         app.initUI();
+        app.initServiceWorker();
         app.initDataBase();
         app.initSocket();
     },
     initUI: () => {
         ///M.Modal.init(modals);
+        if ('ontouchstart' in window) {
+            var inputs = document.getElementsByTagName('input');
+            for (var i = 0; index < inputs.length; ++index) {
+                inputs[index].addEventListener("focus", () => {
+                    document.body.style.position = 'absolute';
+                })
+                inputs[index].addEventListener("blur", () => {
+                    document.body.style.position = '';
+                })
+            }
+        }
         M.Sidenav.init(app.eleNavs, {});
         M.Tabs.init(app.eleTabs);
         M.FloatingActionButton.init(app.eleFloatingButton);
@@ -75,19 +83,20 @@ var app = {
         app.eleContent.style.display = 'block';
     },
     initDataBase: () => {
-        app.dataBase.findOne({ _id: '123' }, function (err, doc) {
+        app.dataBase = new Nedb({
+            filename: 'gasta-db.db',
+            autoload: true
+        });
+        app.dataBase.findOne({ _id: 'gasta-user' }, function (err, doc) {
             if (doc) {
-                //if the user total spent exits, then show it and try to refresh it from server
-                console.log(doc)
+                app.updateTodayTotalSpent(doc.todayTotalSpent);
             } else {
                 //if the user total spent does not exits, then create a new one
-                app.dataBase.insert({ _id: '123', total: 123.50 }, function (err) {
+                app.dataBase.insert({ _id: 'gasta-user', todayTotalSpent: 0.0 }, function (err) {
                     if (err) {
-                        alert(err)
+                        alert(err);
                     } else {
-                        app.dataBase.findOne({ _id: '123' }, function (err, doc) {
-                            console.log(doc)
-                        });
+                        app.updateTodayTotalSpent(0);
                     }
                 });
             }
@@ -96,7 +105,7 @@ var app = {
     initSocket: () => {
         app.socket.on('connect', () => {
             setInterval(app.getTodaySpentInterval, 500);
-            if (app.wentOffline) {
+            if (app.isOffline) {
                 app.showMessage('You are now online.');
             }
         });
@@ -104,12 +113,12 @@ var app = {
         app.socket.on('disconnect', function () {
             clearInterval(app.getTodaySpentInterval);
             app.socket.sendBuffer = [];
-            app.wentOffline = true;
+            app.isOffline = true;
             app.showMessage('Offline mode activated.');
         });
 
         app.socket.on('server-user-connected', (response) => {
-            app.eleTodayTotalSpent.innerHTML = response.totalSpent;
+            app.updateTodayTotalSpent(response.totalSpent);
         });
 
         app.socket.on('server-expense-inserted', (response) => {
@@ -125,7 +134,7 @@ var app = {
         });
 
         app.socket.on('server-expenses-from-dates', (response) => {
-            app.eleTodayTotalSpent.innerHTML = response.totalSpent;
+            app.updateTodayTotalSpent(response.totalSpent);
         });
     },
     initServiceWorker: () => {
@@ -207,6 +216,9 @@ var app = {
             startDate: startDate,
             endDate: endDate
         });
+    },
+    updateTodayTotalSpent: (amount) => {
+        app.eleTodayTotalSpent.innerHTML = parseFloat(amount);
     },
     showMessage: (html) => {
         M.Toast.dismissAll();
