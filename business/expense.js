@@ -36,7 +36,7 @@ var model = {
                         date: new Date(`${date.split("T")[0]}T00:00:00.000Z`),
                         details: details
                     }).then((doc) => {
-                        resolve(doc)
+                        resolve(doc.details[id.toString()]);
                     })
                 }
             })
