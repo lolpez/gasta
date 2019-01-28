@@ -1,2 +1,2 @@
 # gasta
-Progressive web app for expenses control
+Progressive web app for expenses control.
