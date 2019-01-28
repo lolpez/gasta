@@ -9,7 +9,7 @@ var pageRouter = require('./routes/page');
 
 var app = express();
 var io = app.io = require('socket.io')();
-var ioIndex = io.of("/index");
+var ioGasta = io.of("/socket-gasta");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter(ioIndex));
+app.use('/', indexRouter(ioGasta));
 app.use('/GG', pageRouter);
 
 // use HTTPS

@@ -12,7 +12,7 @@ var indexController = (io) => {
         /* GET home page. */
         mainPage: (req, res, next) => {
             res.render("index", {
-                title: "Gasta",
+                title: "GGGG",
                 version: "0.0.1",
             });
         }

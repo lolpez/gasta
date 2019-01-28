@@ -1,12 +1,7 @@
 var todayDate = new Date();
 var app = {
     isOffline: false,
-    socket: io("/index", {
-        query: {
-            startDate: `${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`,
-            endDate: `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`
-        }
-    }),
+    socket: null,
     getTodaySpentInterval: () => {
         app.getFromDates(
             app.getLocalTimeFormat(new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate())),
@@ -46,17 +41,6 @@ var app = {
     },
     initUI: () => {
         ///M.Modal.init(modals);
-        if ('ontouchstart' in window) {
-            /*var inputs = document.getElementsByTagName('input');
-            for (var i = 0; i < inputs.length; ++i) {
-                inputs[i].addEventListener("focus", () => {
-                    document.body.style.position = 'absolute';
-                })
-                inputs[i].addEventListener("blur", () => {
-                    document.body.style.position = '';
-                })
-            }*/
-        }
         M.Sidenav.init(app.eleNavs, {});
         M.Tabs.init(app.eleTabs);
         M.FloatingActionButton.init(app.eleFloatingButton);
@@ -103,6 +87,13 @@ var app = {
         });
     },
     initSocket: () => {
+        app.socket = io("/socket-gasta", {
+            query: {
+                startDate: `${todayDate.toISOString().split("T")[0]}T00:00:00.000Z`,
+                endDate: `${todayDate.toISOString().split("T")[0]}T23:59:59.999Z`
+            }
+        });
+
         app.socket.on('connect', () => {
             setInterval(app.getTodaySpentInterval, 500);
             if (app.isOffline) {
