@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "node ./node_modules/mocha/bin/mocha ./tests/*",
-    "test-travis": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*"
+    "test-travis": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*",
+    "standard": "standard --verbose | snazzy"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -21,6 +22,8 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "snazzy": "^8.0.0",
+    "standard": "^12.0.1"
   }
 }
