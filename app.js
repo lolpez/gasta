@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var pageRouter = require('./routes/page');
+const indexRouter = require('./routes/index');
+const pageRouter = require('./routes/page');
 
-var app = express();
-var io = app.io = require('socket.io')();
-var ioGasta = io.of('/socket-gasta');
+const app = express();
+const io = app.io = require('socket.io')();
+const ioGasta = io.of('/socket-gasta');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
