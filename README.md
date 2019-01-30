@@ -24,37 +24,37 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Install [NodeJS](https://nodejs.org)
+*   Install [NodeJS](https://nodejs.org)
 
 ### Installing
 
 Follow the steps in order to get a Development environment running.
 
-* Clone the project to your local computer.
+*   Clone the project to your local computer.
 ```
 git clone https://github.com/lolpez/gasta.git
 ```
 
-* Inside the project folder, open a command prompt and type:
+*   Inside the project folder, open a command prompt and type:
 ```
 npm install
 ```
-* To start the server, type in the command prompt:
+*   To start the server, type in the command prompt:
 ```
 npm start
 ```
-* And the server will start running at <a href="http://localhost:3000" target="_blank">Localhost</a> listening to port 9000.
+*   And the server will start running at <a href="http://localhost:3000" target="_blank">Localhost</a> listening to port 9000.
 
 ### Tests
 
-* Inside the project folder, open a command prompt and write
+*   Inside the project folder, open a command prompt and write
 ```
 npm test
 ```
 
 ## Author
 
-* [lolpez](https://github.com/lolpez) - *Developer*
+*   [lolpez](https://github.com/lolpez) - *Developer*
 
 ## License
 
@@ -62,11 +62,11 @@ This project is licensed under the Apache License - see the [LICENSE.md](LICENSE
 
 ## Acknowledgments
 
-* NodeJS
-* ExpressJS
-* Mongodb
-* Mochajs
-* Jenkins
-* Instanbul
-* JavaScript Standard Style
-* Videogame gods
+*   NodeJS
+*   ExpressJS
+*   Mongodb
+*   Mochajs
+*   Jenkins
+*   Instanbul
+*   JavaScript Standard Style
+*   Videogame gods
