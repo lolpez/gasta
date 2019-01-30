@@ -1,38 +1,58 @@
 {
-  "name": "pwa-sample",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "test": "node ./node_modules/mocha/bin/mocha ./tests/*",
-    "test-travis": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*",
-    "lint-md": "remark ."
-  },
-  "dependencies": {
-    "babel-eslint": "^10.0.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "mongodb": "^3.1.10",
-    "morgan": "~1.9.0",
-    "nconf": "^0.10.0",
-    "pug": "2.0.0-beta11",
-    "socket.io": "^2.2.0"
-  },
-  "devDependencies": {
-    "coveralls": "^3.0.2",
-    "eslint": "^5.12.1",
-    "eslint-config-google": "^0.11.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "remark-cli": "^6.0.1",
-    "remark-lint": "^6.0.4",
-    "remark-preset-lint-recommended": "^3.0.2"
-  },
-  "remarkConfig": {
-    "plugins": [
-      "remark-preset-lint-recommended"
-    ]
-  }
+	"name": "pwa-sample",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"start": "node ./bin/www",
+		"test": "node ./node_modules/mocha/bin/mocha ./tests/*",
+		"test-travis": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./tests/*",
+		"lint-md": "remark ."
+	},
+	"dependencies": {
+		"babel-eslint": "^10.0.1",
+		"cookie-parser": "~1.4.3",
+		"debug": "~2.6.9",
+		"express": "~4.16.0",
+		"http-errors": "~1.6.2",
+		"mongodb": "^3.1.10",
+		"morgan": "~1.9.0",
+		"nconf": "^0.10.0",
+		"pug": "2.0.0-beta11",
+		"socket.io": "^2.2.0"
+	},
+	"devDependencies": {
+		"coveralls": "^3.0.2",
+		"eslint": "^5.12.1",
+		"eslint-config-defaults": "^9.0.0",
+		"eslint-config-google": "^0.11.0",
+		"istanbul": "^0.4.5",
+		"mocha": "^5.2.0",
+		"remark-cli": "^6.0.1",
+		"remark-lint": "^6.0.4",
+		"remark-preset-lint-recommended": "^3.0.2"
+	},
+	"remarkConfig": {
+		"plugins": [
+			"remark-preset-lint-recommended"
+		]
+	},
+	"eslintConfig": {
+		"rules": {
+			"semi": [
+				"error",
+				"always"
+			],
+			"quotes": [
+				"error",
+				"double"
+			],
+			"react/require-extension": "off",
+			"react/jsx-sort-prop-types": "off",
+			"react/wrap-multilines": "off"
+		},
+		"env": {
+			"browser": true,
+			"node": true
+		}
+	}
 }

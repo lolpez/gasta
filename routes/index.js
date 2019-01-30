@@ -1,11 +1,11 @@
-var express = require('express')
-var router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-var indexRouter = (io) => {
-  /* GET home page. */
-  var indexController = require('../controllers/index-controller')(io)
-  router.get('/', indexController.mainPage)
-  return router
-}
+const indexRouter = (io) => {
+	/* GET home page. */
+	const indexController = require("../controllers/index-controller")(io);
+	router.get("/", indexController.mainPage);
+	return router;
+};
 
-module.exports = indexRouter
+module.exports = indexRouter;
