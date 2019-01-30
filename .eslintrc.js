@@ -8,6 +8,10 @@ module.exports = {
             "error",
             "double"
         ],
+        "arrow-parens": [
+            2,
+            "always"
+        ],
         "react/require-extension": "off",
         "react/jsx-sort-prop-types": "off",
         "react/wrap-multilines": "off"

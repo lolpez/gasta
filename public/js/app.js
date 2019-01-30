@@ -47,7 +47,7 @@ var app = {
 		M.FloatingActionButton.init(app.eleFloatingButton);
 		M.Tooltip.init(app.eleTooltips);
 		M.FormSelect.init(app.eleSelects);
-		app.eleMagicButtons.forEach(magicButton => magicButton.addEventListener("click", function () {
+		app.eleMagicButtons.forEach((magicButton) => magicButton.addEventListener("click", function () {
 			app.newExpense(
 				this.dataset.quantity,
 				this.dataset.category,
@@ -156,7 +156,7 @@ var app = {
 		}
 
 		if ("serviceWorker" in navigator) {
-			navigator.serviceWorker.register("sw.js").then(reg => {
+			navigator.serviceWorker.register("sw.js").then((reg) => {
 				reg.addEventListener("updatefound", () => {
 					app.deferredUpdater = reg.installing;
 					app.deferredUpdater.addEventListener("statechange", () => {
@@ -180,7 +180,9 @@ var app = {
 				console.log("Service Worker Failed to Register", err);
 			});
 			navigator.serviceWorker.addEventListener("controllerchange", function () {
-				if (refreshEvent) return;
+				if (refreshEvent) {
+					return;
+				}
 				window.location.reload();
 				refreshEvent = true;
 			});
