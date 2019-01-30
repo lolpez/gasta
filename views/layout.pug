@@ -8,7 +8,7 @@ html(lang='en-US')
 		meta(name='description', content='Progressive web app for expenses control.')
 		link(rel='manifest', href='/manifest.webmanifest')
 		link(rel='shortcut icon', type='image/x-icon', href='/img/gasta-favicon.ico')
-		link(type='text/css', rel='stylesheet', href='/css/materialize.min.css', media='screen,projection')
+		link(type='text/css', rel='stylesheet', href='/lib/materializecss/materialize.min.css', media='screen,projection')
 		link(type='text/css', rel='stylesheet', href='/css/style.css', media='screen,projection')
 	body.primary-theme
 		#loader
@@ -83,7 +83,7 @@ html(lang='en-US')
 			#submit-button.fixed-action-btn.tooltipped(data-position='left', data-tooltip='Send')
 				a#floating-button.btn-floating.btn-large.secundary-theme(href='javascript:void(0);')
 					i.large.material-icons send
-		script(src='/js/materialize.min.js')
-		script(src='/js/nedb.min.js')
+		script(src='/lib/materializecss/materialize.min.js')
+		script(src='/lib/nedb/nedb.min.js')
 		script(src='/socket.io/socket.io.js')
 		script(src='/js/app.js')

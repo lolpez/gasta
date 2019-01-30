@@ -32,7 +32,8 @@
   },
   "standard": {
     "ignore": [
-      "node_modules/**"
+      "node_modules/**",
+      "public/lib/**"
     ]
   },
   "remarkConfig": {
