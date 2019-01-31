@@ -42,7 +42,7 @@ npm install
 ```
 npm start
 ```
-*   And the server will start running at <a href="http://localhost:3000" target="_blank">Localhost</a> listening to port 9000.
+*   And the server will start running at <a href="http://localhost:3000" target="_blank">Localhost</a> listening to port 3000.
 
 ### Tests
 
