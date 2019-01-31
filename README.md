@@ -4,14 +4,14 @@
     </a>
     <br>Gasta
 </h1>
-<h2 align="center">
+<h3 align="center">
 A progressive web app for expenses control
 
 [![Build Status](https://travis-ci.com/lolpez/gasta.svg?branch=master)](https://travis-ci.com/lolpez/gasta)
 [![Coverage Status](https://coveralls.io/repos/github/lolpez/gasta/badge.svg?branch=master)](https://coveralls.io/github/lolpez/gasta?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0164d9a766e34481a176d0e170507ef2)](https://www.codacy.com/app/lolpez/gasta?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lolpez/gasta&amp;utm_campaign=Badge_Grade)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=gasta&style=flat&svg=1)](https://gasta.herokuapp.com/)
-</h2>
+[![Heroku](https://img.shields.io/badge/Heroku-demo-brightgreen.svg)](https://gasta.herokuapp.com/)
+</h3>
 
 ## About
 
@@ -67,5 +67,5 @@ This project is licensed under the Apache License - see the [LICENSE.md](LICENSE
 *   Mochajs
 *   Jenkins
 *   Instanbul
-*   JavaScript Standard Style
+*   Eslint
 *   Videogame gods
