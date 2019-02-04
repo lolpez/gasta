@@ -14,7 +14,8 @@ module.exports = {
         ],
         "react/require-extension": "off",
         "react/jsx-sort-prop-types": "off",
-        "react/wrap-multilines": "off"
+        "react/wrap-multilines": "off",
+        "react/forbid-prop-types": 0
     },
     "env": {
         "browser": true,
