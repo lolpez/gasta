@@ -1,8 +1,12 @@
 form(action="/", method="POST")
 	h1 Username
-	input(type="text", name="username", value="admin")
+	input(type="text", name="username", value="bob")
 	br
 	h1 Password
-	input(type="password", name="password", value="password")
+	input(type="password", name="password", value="secret")
+	h1 Remember me
+	input(type="checkbox", name="remember_me", value="yes")
 	br
 	input(type="submit", value="Go")
+if error
+	h1=error

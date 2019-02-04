@@ -4,15 +4,16 @@ const router = express.Router();
 const indexController = require("../controllers/index-controller");
 
 router.get("/", indexController.loginPage);
-router.get("/logout", requiresUserLogged, indexController.logout);
-router.post("/", passport.authenticate("local", { failureRedirect: "/", failureFlash: true, badRequestMessage: "Incorrect data." }), indexController.authenticate);
+router.get("/logout", indexController.logout);
+router.post("/", passport.authenticate("local", { failureRedirect: "/", failureFlash: true }), indexController.authenticate,
+	function (req, res) {
+		res.redirect("/app");
+	});
 
-function requiresUserLogged(req, res, next) {
-	if (req.user) {
-		next();
-	} else {
-		res.redirect("/");
-	}
+
+function ensureAuthenticated(req, res, next) {
+	if (req.isAuthenticated()) { return next(); }
+	res.redirect("/");
 }
 
 module.exports = router;
