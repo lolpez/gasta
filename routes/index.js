@@ -1,11 +1,19 @@
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
+const indexController = require("../controllers/index-controller");
 
-const indexRouter = (io) => {
-	/* GET home page. */
-	const indexController = require("../controllers/index-controller")(io);
-	router.get("/", indexController.mainPage);
-	return router;
-};
+router.get("/", indexController.loginPage);
+router.get("/logout", requiresUserLogged, indexController.logout);
+router.post("/", passport.authenticate("local", { failureRedirect: "/", failureFlash: true, badRequestMessage: "Incorrect data." }), indexController.authenticate);
 
-module.exports = indexRouter;
+function requiresUserLogged(req, res, next) {
+	if (req.user) {
+		next();
+	} else {
+		res.redirect("/");
+	}
+}
+
+module.exports = router;
+

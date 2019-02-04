@@ -1,74 +1,34 @@
-var businessExpense = require("../business/expense");
 /**
  * @constructor
- * @param {SocketIO} io - Socket IO room for index router.
  * @version 1.0
  * @namespace
  * @class indexController
  */
-var indexController = (io) => {
-	var pages = {
-		/* GET home page. */
-		mainPage: (req, res, next) => {
-			res.render("index", {
-				title: "GGGG",
-				version: "0.0.1"
+var indexController = {
+	/* GET login page. */
+	loginPage: (req, res, next) => {
+		if (req.user) {
+			//user already logged
+			console.log("im here");
+			res.redirect("/app");
+		} else {
+			//user not logged
+			console.log("im here 2----------------");
+			res.render("login", {
+				error: req.flash("error")
 			});
 		}
-	};
-	/**
-	 * Socket io listener for insert/update/delete functions.
-	 * @function io
-	 * @param {SocketIO} socket - Socket connected.
-	 * @memberof indexController
-	 */
-	io.on("connection", (socket) => {
-		businessExpense.getExpensesFromDates(
-			socket.handshake.query.startDate,
-			socket.handshake.query.endDate
-		).then((result) => {
-			io.to(socket.id).emit("server-user-connected", {
-				success: true,
-				message: `User ${socket.id} connected successfully.`,
-				totalSpent: result ? result.total : 0
-			});
-		});
-
-		/**
-		 * Socket listener for insert events.
-		 * @function socket-onInsert
-		 * @param {object} data - Data recieved for person insertion.
-		 * @property {string} data.name - Person's name.
-		 * @property {string} data.lastName - Person's paternal and maternal last name.
-		 * @property {Date} data.birthday - Person's birth date.
-		 * @memberof indexController
-		 */
-		socket.on("client-new-expense", (data) => {
-			businessExpense.newExpense(
-				data.date,
-				data.quantity,
-				data.category,
-				data.description
-			).then((expense) => {
-				io.to(socket.id).emit("server-expense-inserted", {
-					success: true,
-					message: `Bs. ${expense.quantity} spent in ${expense.category}`
-				});
-			});
-		});
-
-		socket.on("client-get-expenses-from-dates", (data) => {
-			businessExpense.getExpensesFromDates(
-				data.startDate,
-				data.endDate
-			).then((result) => {
-				io.to(socket.id).emit("server-expenses-from-dates", {
-					totalSpent: result ? result.total : 0
-				});
-			});
-		});
-	});
-	return pages;
+	},
+	/* GET logout page. */
+	logout: (req, res, next) => {
+		req.logout();
+		res.redirect("/");
+	},
+	/* POST authenticate user. */
+	authenticate: (req, res, next) => {
+		//Check is user exits in database, etc..
+		res.redirect("/app");
+	}
 };
 
 module.exports = indexController;
