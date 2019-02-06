@@ -11,8 +11,9 @@ var indexController = (io) => {
 		/* GET home page. */
 		appPage: (req, res, next) => {
 			res.render("index", {
-				title: "GGGG",
-				version: "0.0.1"
+				title: "Gasta",
+				version: "0.0.1",
+				user: req.user
 			});
 		}
 	};

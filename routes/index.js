@@ -10,11 +10,5 @@ router.post("/", passport.authenticate("local", { failureRedirect: "/", failureF
 		res.redirect("/app");
 	});
 
-
-function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) { return next(); }
-	res.redirect("/");
-}
-
 module.exports = router;
 

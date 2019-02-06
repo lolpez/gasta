@@ -18,8 +18,8 @@ const ioGasta = io.of("/socket-gasta");
 
 // Passport
 var users = [
-	{ id: 1, username: "bob", password: "secret", email: "bob@example.com" },
-	{ id: 2, username: "joe", password: "birthday", email: "joe@example.com" }
+	{ id: 1, username: "luis", password: "password", email: "luis@example.com", name: "Luis", lastName: "Lopez" },
+	{ id: 2, username: "daniela", password: "password", email: "daniela@example.com", name: "Daniela", lastName: "Mejia" }
 ];
 
 app.set("userTokens", {});
