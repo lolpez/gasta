@@ -18,7 +18,6 @@ var indexController = {
 				error: req.flash("error")
 			});
 		}
-		//res.render("login", { user: req.user, message: req.flash("error") });
 	},
 	/* GET logout page. */
 	logout: (req, res, next) => {
@@ -33,26 +32,12 @@ var indexController = {
 		// Issue a remember me cookie if the option was checked
 		if (!req.body.remember_me) { return next(); }
 
-		issueToken(req.user, function (err, token) {
+		req.app.get("issueToken")(req.user, function (err, token) {
 			if (err) { return next(err); }
 			res.cookie("remember_me", token, { path: "/", httpOnly: true, maxAge: 604800000 });
 			return next();
 		});
 	}
 };
-
-function issueToken(user, done) {
-	var token = new mongodb.ObjectID();
-	saveRememberMeToken(token.toString(), user.id, function (err) {
-		if (err) { return done(err); }
-		return done(null, token.toString());
-	});
-}
-
-
-function saveRememberMeToken(token, uid, fn) {
-	tokens[token] = uid;
-	return fn();
-}
 
 module.exports = indexController;

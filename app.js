@@ -18,9 +18,28 @@ const ioGasta = io.of("/socket-gasta");
 
 // Passport
 var users = [
-	{ id: 1, username: "bob", password: "secret", email: "bob@example.com" }
-	, { id: 2, username: "joe", password: "birthday", email: "joe@example.com" }
+	{ id: 1, username: "bob", password: "secret", email: "bob@example.com" },
+	{ id: 2, username: "joe", password: "birthday", email: "joe@example.com" }
 ];
+
+app.set("userTokens", {});
+app.set("consumeRememberMeToken", (token, fn) => {
+	var uid = app.get("userTokens")[token];
+	// invalidate the single-use token
+	delete app.get("userTokens")[token];
+	return fn(null, uid);
+});
+app.set("issueToken", (user, done) => {
+	var token = new mongodb.ObjectID();
+	app.get("saveRememberMeToken")(token.toString(), user.id, function (err) {
+		if (err) { return done(err); }
+		return done(null, token.toString());
+	});
+});
+app.set("saveRememberMeToken", (token, uid, fn) => {
+	app.get("userTokens")[token] = uid;
+	return fn();
+});
 
 function findById(id, fn) {
 	var idx = id - 1;
@@ -41,7 +60,6 @@ function findByUsername(username, fn) {
 	return fn(null, null);
 }
 
-
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -57,24 +75,22 @@ passport.deserializeUser(function (id, done) {
 	});
 });
 
-
 // Use the LocalStrategy within Passport.
-//   Strategies in passport require a `verify` function, which accept
-//   credentials (in this case, a username and password), and invoke a callback
-//   with a user object.  In the real world, this would query a database;
-//   however, in this example we are using a baked-in set of users.
+// Strategies in passport require a `verify` function, which accept
+// credentials (in this case, a username and password), and invoke a callback
+// with a user object.  In the real world, this would query a database;
+// however, in this example we are using a baked-in set of users.
 passport.use(new LocalStrategy(
 	function (username, password, done) {
 		// asynchronous verification, for effect...
 		process.nextTick(function () {
-
 			// Find the user by username.  If there is no user with the given
 			// username, or the password is not correct, set the user to `false` to
 			// indicate failure and set a flash message.  Otherwise, return the
 			// authenticated `user`.
 			findByUsername(username, function (err, user) {
 				if (err) { return done(err); }
-				if (!user) { return done(null, false, { message: "Unknown user " + username }); }
+				if (!user) { return done(null, false, { message: "Unknown account " + username }); }
 				if (user.password !== password) { return done(null, false, { message: "Invalid password" }); }
 				return done(null, user);
 			});
@@ -83,12 +99,12 @@ passport.use(new LocalStrategy(
 ));
 
 // Remember Me cookie strategy
-//   This strategy consumes a remember me token, supplying the user the
-//   token was originally issued to.  The token is single-use, so a new
-//   token is then issued to replace it.
+// This strategy consumes a remember me token, supplying the user the
+// token was originally issued to.  The token is single-use, so a new
+// token is then issued to replace it.
 passport.use(new RememberMeStrategy(
 	function (token, done) {
-		consumeRememberMeToken(token, function (err, uid) {
+		app.get("consumeRememberMeToken")(token, function (err, uid) {
 			if (err) { return done(err); }
 			if (!uid) { return done(null, false); }
 
@@ -99,31 +115,8 @@ passport.use(new RememberMeStrategy(
 			});
 		});
 	},
-	issueToken
+	app.get("issueToken")
 ));
-var tokens = {};
-function consumeRememberMeToken(token, fn) {
-	var uid = tokens[token];
-	// invalidate the single-use token
-	delete tokens[token];
-	return fn(null, uid);
-}
-
-function issueToken(user, done) {
-	var token = new mongodb.ObjectID();
-	saveRememberMeToken(token.toString(), user.id, function (err) {
-		if (err) { return done(err); }
-		return done(null, token.toString());
-	});
-}
-
-
-function saveRememberMeToken(token, uid, fn) {
-	tokens[token] = uid;
-	return fn();
-}
-
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
